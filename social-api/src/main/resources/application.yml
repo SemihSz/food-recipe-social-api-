@@ -1,0 +1,43 @@
+spring:
+  cloud:
+    discovery:
+      enabled: true
+  application:
+    name: SOCIAL-API
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/food_recipe_api
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: pass
+    hikari:
+      auto_commit: false
+
+
+
+logging:
+  level.*:
+    org.springframework.web.client.RestTemplate: INFO
+    com.application.document: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: TRACE
+  file:
+    name: logs/social-api-app.log
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+
+server:
+  port: 9978

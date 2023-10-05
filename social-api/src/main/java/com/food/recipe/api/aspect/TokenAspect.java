@@ -1,5 +1,6 @@
 package com.food.recipe.api.aspect;
 
+import com.food.recipe.api.service.GenericRestClient;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,6 +22,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 @Aspect
 @Component
@@ -34,6 +37,8 @@ public class TokenAspect {
     public static final String USER_ID = "USER_ID";
 
     public static final String USERNAME = "USERNAME";
+
+    private final GenericRestClient genericRestClient;
 
     @Pointcut("within(@org.springframework.web.bind.annotation.RestController *) && execution(* com.food.recipe.api.controller.*.*(..))")
     public void allMethods() {
@@ -68,7 +73,10 @@ public class TokenAspect {
         headers.set("USER_ID", userId);
         headers.set("Authorization", token);
 
-        final ResponseEntity<String> response = restTemplate.exchange(url.concat(username), HttpMethod.GET, new HttpEntity<>(headers), String.class);
+        Map<String, Object> path = new HashMap<>();
+        path.put(username, username);
+
+        final ResponseEntity<Object> response = genericRestClient.get(url, Object.class, null, path);
         final HttpStatusCode statusCode = response.getStatusCode();
 
         return statusCode == HttpStatus.OK;

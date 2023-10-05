@@ -43,9 +43,9 @@ public class RegisterService implements SimpleTask<RegisterRequest, Boolean> {
     @Override
     public Boolean apply(RegisterRequest registerRequest) {
 
-        if (userRepository.existsByUsername(registerRequest.getUsername())) {
+        if (Boolean.TRUE.equals(userRepository.existsByUsername(registerRequest.getUsername()))) {
             throw new com.food.recipe.api.exception.AuthException(messageSource.getMessage(AuthenticationConstant.Exception.AUTH_USER_EXIST, null, Locale.ENGLISH));
-        } else if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        } else if (Boolean.TRUE.equals(userRepository.existsByEmail(registerRequest.getEmail()))) {
             throw new com.food.recipe.api.exception.AuthException((messageSource.getMessage(AuthenticationConstant.Exception.AUTH_EMAIL_EXIST, null, Locale.ENGLISH)));
         }
 

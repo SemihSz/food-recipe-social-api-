@@ -29,10 +29,10 @@ public class ChangePasswordService implements SimpleTask<ChangePasswordRequest, 
 
         if (Objects.nonNull(user)) {
             // Control old password!
-            if (passwordControlService.apply(user.getPassword(), changePasswordRequest.getOldPassword())) {
+            if (Boolean.TRUE.equals(passwordControlService.apply(user.getPassword(), changePasswordRequest.getOldPassword()))) {
 
                 // Control new and newRe password!
-                if (passwordControlService.apply(changePasswordRequest.getNewPassword(), changePasswordRequest.getNewRePassword())) {
+                if (Boolean.TRUE.equals(passwordControlService.apply(changePasswordRequest.getNewPassword(), changePasswordRequest.getNewRePassword()))) {
                     BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
                     user.setPassword(bcryptEncoder.encode(changePasswordRequest.getNewPassword()));
                     userRepository.save(user);

@@ -41,3 +41,8 @@ management:
 
 server:
   port: 9978
+
+projects:
+  project:
+    - id: auth
+      url: http://localhost:8080/auth/valid

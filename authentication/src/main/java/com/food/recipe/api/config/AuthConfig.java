@@ -75,9 +75,7 @@ public class AuthConfig {
 
         http
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()))
-                .formLogin()
-                .defaultSuccessUrl("/", true); // Burada defaultSuccessUrl eklemesi yapılıyor.
+                .headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
 
         return http.build();
     }

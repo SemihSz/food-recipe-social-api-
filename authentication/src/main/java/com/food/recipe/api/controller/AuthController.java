@@ -29,12 +29,6 @@ public class AuthController {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, authService.login(authRequest)));
     }
-
-    @GetMapping("/validate")
-    public ResponseEntity<RestResponse<String>> validateToken() {
-        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, "Token is valid"));
-    }
-
     @PostMapping("/password/change")
     public ResponseEntity<RestResponse<Boolean>> passwordChange(@Valid @RequestBody ChangePasswordRequest request) {
 

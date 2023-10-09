@@ -2,15 +2,21 @@ package com.food.recipe.api.service.executable;
 
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.entity.user.SocialUserEntity;
+import com.food.recipe.api.exception.BusinessException;
 import com.food.recipe.api.model.request.user.RegisterUserSocialAppRequest;
 import com.food.recipe.api.repository.user.SocialUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.food.recipe.api.Constant.Exception.*;
 
 /**
  * Created by Semih, 1.10.2023
@@ -22,6 +28,8 @@ public class RegisterUserSocialAppService implements SimpleTask<RegisterUserSoci
 
     private final SocialUserRepository socialUserRepository;
 
+    private final MessageSource messageSource;
+
     @Override
     public Boolean apply(RegisterUserSocialAppRequest request) {
 
@@ -32,7 +40,8 @@ public class RegisterUserSocialAppService implements SimpleTask<RegisterUserSoci
             final SocialUserEntity createNewUser = SocialUserEntity.builder()
                     .id(request.getId())
                     .uuid(randomUUID.toString())
-                    .createdAt(Instant.now())
+                    .createdAt(LocalDateTime.now())
+                    .updatedAt(LocalDateTime.now())
                     .username(request.getUsername())
                     .name(request.getName())
                     .surname(request.getSurname())
@@ -41,11 +50,17 @@ public class RegisterUserSocialAppService implements SimpleTask<RegisterUserSoci
                     .bioHeader(request.getBioHeader())
                     .bioDesc(request.getBioDesc())
                     .url(request.getUrl())
+                    .followedCount(0L)
+                    .followersCount(0L)
+                    .postCount(0L)
+                    .numberOfRt(0L)
+                    .numberOfNotifications(0L)
                     .build();
 
             socialUserRepository.save(createNewUser);
             return Boolean.TRUE;
         }
-        return Boolean.FALSE;
+        throw new BusinessException((messageSource.getMessage(USER_EXIST, null, Locale.ENGLISH)));
+
     }
 }

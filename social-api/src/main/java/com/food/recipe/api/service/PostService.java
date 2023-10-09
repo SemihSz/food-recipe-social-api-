@@ -10,5 +10,5 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface PostService {
 
-    Boolean createPost(PostRequest request, MultipartFile file);
+    Boolean createPost(PostRequest request);
 }

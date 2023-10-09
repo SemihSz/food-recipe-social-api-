@@ -22,7 +22,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public Boolean createPost(PostRequest request, MultipartFile file) {
+    public Boolean createPost(PostRequest request) {
 
         // TODO Create new model to access db.
         PostEntity post = new PostEntity();
@@ -31,9 +31,8 @@ public class PostServiceImpl implements PostService {
         final PostEntity savePost = postRepository.save(post);
 
         if (Objects.nonNull(savePost.getId())) {
-
+            return Boolean.TRUE;
         }
-
 
         return null;
     }

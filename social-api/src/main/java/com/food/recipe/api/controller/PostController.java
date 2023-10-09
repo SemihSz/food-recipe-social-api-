@@ -21,8 +21,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create-post")
-    public ResponseEntity<RestResponse<Boolean>> createPost(@RequestBody PostRequest postRequest, @RequestParam("image") MultipartFile image) {
+    public ResponseEntity<RestResponse<Boolean>> createPost(@RequestBody PostRequest postRequest) {
 
-        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest, image)));
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
     }
 }

@@ -13,4 +13,12 @@ public class Constant {
         public static final String AUTH_INFO = "/summary/info/{username}";
 
     }
+
+    public static class Exception {
+
+        public static final String USER_EXIST = "user_exits";
+
+        public Exception() {
+        }
+    }
 }

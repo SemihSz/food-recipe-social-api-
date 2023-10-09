@@ -112,7 +112,7 @@ public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64R
                     if (sizeOfFiles.intValue() <= 5 * 1000000L) {
                         // final UserDetails userInfo = jwtUserDetailsService.loadUserByUsername(saveDocumentBase64Request.getUsername());
                         final DocumentEntity document = DocumentEntity.builder()
-                                //.userId(userEntity.getId()) TODO yap
+                                .userId(saveDocumentBase64Request.getUserId())
                                 .username(saveDocumentBase64Request.getUsername())
                                 .fileType(base64File.getFileType())
                                 .fileName(base64File.getFileName())

@@ -50,7 +50,7 @@ public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequ
 
                 try {
                     final DocumentEntity document = DocumentEntity.builder()
-                            // .userId(userEntity.getId()) // TODO
+                            .userId(request.getUserId())
                             .username(request.getUsername())
                             .fileType(multipartFile.getContentType())
                             .fileName(fileName)

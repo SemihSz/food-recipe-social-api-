@@ -4,8 +4,11 @@ import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
 import com.food.recipe.api.model.response.DocumentInfoResponse;
 import com.food.recipe.api.model.response.DocumentListResponse;
+import com.food.recipe.api.model.response.SaveDocumentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +25,12 @@ public class DocumentServiceImpl implements DocumentService {
     private final  SaveMultipartDocumentService saveMultipartDocumentService;
 
     @Override
-    public Boolean save(SaveDocumentRequest request) {
+    public SaveDocumentResponse save(SaveDocumentRequest request) {
         return saveDocumentService.apply(request);
     }
 
     @Override
-    public Boolean saveBase64(SaveDocumentBase64Request request) {
+    public List<SaveDocumentResponse> saveBase64(SaveDocumentBase64Request request) {
         return saveBase64DocumentService.apply(request);
     }
 

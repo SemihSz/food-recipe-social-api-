@@ -6,6 +6,7 @@ import com.food.recipe.api.entity.DocumentEntity;
 import com.food.recipe.api.exception.BusinessException;
 import com.food.recipe.api.model.Base64Files;
 import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
+import com.food.recipe.api.model.response.SaveDocumentResponse;
 import com.food.recipe.api.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,8 @@ import org.springframework.util.unit.DataSize;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64Request, Boolean> {
+public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64Request, List<SaveDocumentResponse>> {
 
     private final DocumentRepository documentRepository;
 
@@ -93,9 +96,10 @@ public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64R
 
 
     @Override
-    public Boolean apply(SaveDocumentBase64Request saveDocumentBase64Request) {
+    public List<SaveDocumentResponse> apply(SaveDocumentBase64Request saveDocumentBase64Request) {
         AtomicInteger sizeOfFiles = new AtomicInteger();
         var virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
+        List<SaveDocumentResponse> documentResponseList = new ArrayList<>();
 
         for (Base64Files base64File : saveDocumentBase64Request.getFilesList()) {
             virtualThreadExecutor.execute(() -> {
@@ -121,6 +125,7 @@ public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64R
                                 .build();
                         documentRepository.save(document);
                         log.info("SaveBase64DocumentService is successfully");
+                        documentResponseList.add(SaveDocumentResponse.builder().documentId(document.getId()).userId(document.getUserId()).fileName(document.getFileName()).build());
                     }
                     // TODO TEST
                     // If total files size greater than 5MB, this else block will throw exception for user.
@@ -145,7 +150,7 @@ public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64R
             }
         }
 
-        return Boolean.TRUE;
+        return documentResponseList;
     }
 
 }

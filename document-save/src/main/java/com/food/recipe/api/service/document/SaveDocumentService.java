@@ -3,6 +3,7 @@ package com.food.recipe.api.service.document;
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.entity.DocumentEntity;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
+import com.food.recipe.api.model.response.SaveDocumentResponse;
 import com.food.recipe.api.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.Objects;
  */
 @Service
 @RequiredArgsConstructor
-public class SaveDocumentService implements SimpleTask<SaveDocumentRequest, Boolean> {
+public class SaveDocumentService implements SimpleTask<SaveDocumentRequest, SaveDocumentResponse> {
 
     private final MultipartFileControlService fileControlService;
 
@@ -29,7 +30,7 @@ public class SaveDocumentService implements SimpleTask<SaveDocumentRequest, Bool
      * @return
      */
     @Override
-    public Boolean apply(SaveDocumentRequest request) {
+    public SaveDocumentResponse apply(SaveDocumentRequest request) {
 
         final String fileName = StringUtils.cleanPath(Objects.requireNonNull(request.getFile().getOriginalFilename()));
 
@@ -53,10 +54,10 @@ public class SaveDocumentService implements SimpleTask<SaveDocumentRequest, Bool
                     .time(LocalDateTime.now())
                     .build();
             documentRepository.save(document);
+            return SaveDocumentResponse.builder().documentId(document.getId())
+                    .userId(document.getUserId()).fileName(document.getFileName()).build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return Boolean.TRUE;
     }
 }

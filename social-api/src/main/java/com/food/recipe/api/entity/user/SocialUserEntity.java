@@ -23,6 +23,8 @@ public class SocialUserEntity {
     @Id
     private Long id;
 
+    private String uuid;
+
     private String username;
 
     private String name;

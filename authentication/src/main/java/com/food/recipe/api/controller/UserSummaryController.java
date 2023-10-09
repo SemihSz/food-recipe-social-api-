@@ -6,10 +6,7 @@ import com.food.recipe.api.service.summary.UserSummaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Semih, 1.10.2023
@@ -22,7 +19,13 @@ public class UserSummaryController {
     private final UserSummaryService summaryService;
 
     @GetMapping("/info/{username}")
-    public ResponseEntity<RestResponse<UserSummaryResponse>> documentList(@PathVariable String username) {
+    public ResponseEntity<RestResponse<UserSummaryResponse>> documentListl(@PathVariable String username) {
+
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, summaryService.summary(username)));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<RestResponse<UserSummaryResponse>> documentList(@RequestHeader(value = "username") String username) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, summaryService.summary(username)));
     }

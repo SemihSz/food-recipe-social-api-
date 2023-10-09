@@ -15,7 +15,7 @@ public class RegisterUserSocialAppRequest extends BaseRequest {
 
     private String surname;
 
-    private boolean isPrivate;
+    private boolean accountStatus;
 
     private String url;
 

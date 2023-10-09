@@ -30,7 +30,7 @@ public class UserSummaryServiceImpl implements UserSummaryService {
                     .id(userInfo.getId())
                     .username(userInfo.getUsername())
                     .name(userInfo.getName())
-                    .isAccountPrivate(userInfo.isPrivate())
+                    .accountStatus(userInfo.isPrivate())
                     .bioHeader(userInfo.getBioHeader())
                     .bioDesc(userInfo.getBioDesc())
                     .imagePath(userInfo.getProfileImageId())

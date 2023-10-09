@@ -19,6 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean registerUser(RegisterUserSocialAppRequest request) {
-        return null;
+        return registerUserSocialAppService.apply(request);
     }
 }

@@ -1,4 +1,4 @@
-package com.food.recipe.api.service;
+package com.food.recipe.api.service.client;
 
 /**
  * Created by Semih, 6.10.2023
@@ -24,8 +24,8 @@ public class GenericRestClient {
         this.restTemplate = restTemplate;
     }
 
-    public <T> ResponseEntity<T> get(String url, Class<T> responseType, Map<String, String> queryParams, Map<String, Object> pathVariables) {
-        HttpHeaders headers = new HttpHeaders();
+    public <T> ResponseEntity<T> get(String url, Class<T> responseType, HttpHeaders headers, Map<String, String> queryParams, Map<String, Object> pathVariables) {
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
         // Add query parameters

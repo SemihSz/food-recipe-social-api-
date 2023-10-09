@@ -22,5 +22,5 @@ public class UserSummaryResponse {
 
     private String bioDesc;
 
-    private boolean isAccountPrivate;
+    private boolean accountStatus;
 }

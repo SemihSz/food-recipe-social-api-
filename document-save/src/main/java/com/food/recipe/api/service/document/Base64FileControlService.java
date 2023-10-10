@@ -3,7 +3,7 @@ package com.food.recipe.api.service.document;
 import com.food.recipe.api.DocumentConstant;
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.exception.BusinessException;
-import com.food.recipe.api.model.Base64Files;
+import com.food.recipe.api.model.document.Base64Files;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.context.MessageSource;

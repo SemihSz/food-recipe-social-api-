@@ -2,8 +2,8 @@ package com.food.recipe.api.service.document;
 
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.entity.DocumentEntity;
-import com.food.recipe.api.model.request.document.SaveDocumentRequest;
-import com.food.recipe.api.model.document_response.SaveDocumentResponse;
+import com.food.recipe.api.model.document.request.SaveDocumentRequest;
+import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

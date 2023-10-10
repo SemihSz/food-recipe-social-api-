@@ -1,11 +1,11 @@
 package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
-import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
-import com.food.recipe.api.model.request.document.SaveDocumentRequest;
-import com.food.recipe.api.model.document_response.DocumentInfoResponse;
-import com.food.recipe.api.model.document_response.DocumentListResponse;
-import com.food.recipe.api.model.document_response.SaveDocumentResponse;
+import com.food.recipe.api.model.document.request.SaveDocumentBase64Request;
+import com.food.recipe.api.model.document.request.SaveDocumentRequest;
+import com.food.recipe.api.model.document.response.DocumentInfoResponse;
+import com.food.recipe.api.model.document.response.DocumentListResponse;
+import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.service.document.DocumentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

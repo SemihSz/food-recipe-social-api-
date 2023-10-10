@@ -43,28 +43,15 @@ public class ServiceRestClient<T> implements Mappers<RestClientRequest, Class<T>
         try {
             if (HttpMethod.POST.equals(request.getRequestMethod())) {
                 // Bu bir POST isteği ise, gerekli değişiklikleri yapın
-                if (Objects.isNull(request.getFormBody())) {
-                    final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, new HttpEntity<>(request.getBody(),
-                            request.getHttpHeaders()), responseModel);
-                    if (response.getStatusCode() == HttpStatus.OK) {
-                        String someJsonString = mapper.writeValueAsString(response.getBody());
-                        return mapper.readValue(someJsonString, responseModel);
-                    }
-                    else {
-                        errorHandler(response);
-                    }
+                final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, new HttpEntity<>(request.getBody(),
+                        request.getHttpHeaders()), responseModel);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    String someJsonString = mapper.writeValueAsString(response.getBody());
+                    return mapper.readValue(someJsonString, responseModel);
                 }
                 else {
-                    HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(request.getFormBody(), request.getHttpHeaders());
-                    final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, httpEntity, responseModel);
-                    if (response.getStatusCode() == HttpStatus.OK) {
-                        String someJsonString = mapper.writeValueAsString(response.getBody());
-                        return mapper.readValue(someJsonString, responseModel);
-                    } else {
-                        errorHandler(response);
-                    }
+                    errorHandler(response);
                 }
-
             } else {
                 // GET isteği olarak devam edin
                 final UriComponentsBuilder builder = uriBuilder(request.getUrl(), request.getQueryParams());

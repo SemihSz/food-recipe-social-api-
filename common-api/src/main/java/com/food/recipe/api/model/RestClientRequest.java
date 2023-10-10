@@ -18,11 +18,11 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class RestClientRequest implements Serializable {
+public class RestClientRequest<T> implements Serializable {
 
     private String url;
 
-    private MultiValueMap<String, String> body;
+    private T body;
 
     private Map<String, Object> queryParams;
 

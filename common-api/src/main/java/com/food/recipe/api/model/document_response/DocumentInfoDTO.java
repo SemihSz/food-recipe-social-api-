@@ -1,4 +1,4 @@
-package com.food.recipe.api.model;
+package com.food.recipe.api.model.document_response;
 
 import lombok.Builder;
 import lombok.Getter;

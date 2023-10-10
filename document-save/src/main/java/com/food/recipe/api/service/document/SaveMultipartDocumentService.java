@@ -4,6 +4,7 @@ import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.entity.DocumentEntity;
 import com.food.recipe.api.exception.BusinessException;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
+import com.food.recipe.api.model.document_response.SaveDocumentResponse;
 import com.food.recipe.api.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +15,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequest, Boolean> {
+public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequest, List<SaveDocumentResponse>> {
 
     private final DocumentRepository documentRepository;
 
@@ -30,7 +33,9 @@ public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequ
     private static final DataSize MAX_FILE_SIZE = DataSize.ofMegabytes(5);
     
     @Override
-    public Boolean apply(SaveDocumentRequest request) {
+    public List<SaveDocumentResponse> apply(SaveDocumentRequest request) {
+
+        List<SaveDocumentResponse> documentResponseList = new ArrayList<>();
 
         var virtualThreadExecutor = Executors.newVirtualThreadPerTaskExecutor();
         
@@ -58,6 +63,8 @@ public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequ
                             .time(LocalDateTime.now())
                             .build();
                     documentRepository.save(document);
+                    documentResponseList.add(SaveDocumentResponse.builder().documentId(document.getId()).userId(document.getUserId()).fileName(document.getFileName()).build());
+
                 } catch (IOException e) {
                     throw new BusinessException( "İşlemlerinizi şu vakit gerçekleştiremiyoruz.");
                 }
@@ -72,7 +79,6 @@ public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequ
                 throw new BusinessException( "İşlemlerinizi şu vakit gerçekleştiremiyoruz.");
             }
         }
-
-        return Boolean.TRUE;
+        return documentResponseList;
     }
 }

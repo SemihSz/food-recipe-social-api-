@@ -16,7 +16,6 @@ spring:
 
 logging:
   level.*:
-    org.springframework.security: DEBUG
     org.springframework.web.client.RestTemplate: INFO
     com.food.recipe.api: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor: TRACE

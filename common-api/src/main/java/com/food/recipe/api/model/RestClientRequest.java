@@ -3,8 +3,10 @@ package com.food.recipe.api.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import okhttp3.MultipartBody;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
 import java.io.Serializable;
@@ -29,4 +31,8 @@ public class RestClientRequest implements Serializable {
     private HttpMethod requestMethod;
 
     private HttpHeaders httpHeaders;
+
+    private MultiValueMap<String, Object> formBody;
+
+    private MultipartBody multipartBody;
 }

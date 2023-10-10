@@ -3,9 +3,9 @@ package com.food.recipe.api.controller;
 import com.food.recipe.api.model.RestResponse;
 import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
-import com.food.recipe.api.model.response.DocumentInfoResponse;
-import com.food.recipe.api.model.response.DocumentListResponse;
-import com.food.recipe.api.model.response.SaveDocumentResponse;
+import com.food.recipe.api.model.document_response.DocumentInfoResponse;
+import com.food.recipe.api.model.document_response.DocumentListResponse;
+import com.food.recipe.api.model.document_response.SaveDocumentResponse;
 import com.food.recipe.api.service.document.DocumentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,12 +43,12 @@ public class DocumentController {
     }
 
     @ApiOperation(value = "Save document with multipart files")
-    @PostMapping("/save-multipart")
-    public ResponseEntity<RestResponse> uploadDocuments(@ApiParam(required = true, value = "MultipartFile") @RequestParam("file") MultipartFile[] files,
+    @PostMapping(value = "/save-multipart", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RestResponse<List<SaveDocumentResponse>>> uploadDocuments(@ApiParam("MultipartFile") @RequestParam("file") MultipartFile[] file,
                                                         @ApiParam(required = true, value = "Username", example = "testusername") @RequestParam("username") String username,
                                                         @ApiParam(required = true, value = "User Id", example = "1") @RequestParam("id") Long id) {
         final SaveDocumentRequest request = SaveDocumentRequest.builder()
-                .files(files)
+                .files(file)
                 .username(username)
                 .userId(id)
                 .build();

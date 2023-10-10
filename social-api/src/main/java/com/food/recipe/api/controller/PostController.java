@@ -5,6 +5,7 @@ import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,5 +25,13 @@ public class PostController {
     public ResponseEntity<RestResponse<Boolean>> createPost(@RequestBody PostRequest postRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
+    }
+
+    @PostMapping(value = "/create-post-via-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RestResponse<Boolean>> createPostWithMultiPartFile(@RequestParam("file") MultipartFile[] file,
+                                                                             @RequestParam("username") String username,
+                                                                             @RequestParam("id") Long id) {
+
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(file, username, id)));
     }
 }

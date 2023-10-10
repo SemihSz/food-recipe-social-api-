@@ -2,9 +2,9 @@ package com.food.recipe.api.service.document;
 
 import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
-import com.food.recipe.api.model.response.DocumentInfoResponse;
-import com.food.recipe.api.model.response.DocumentListResponse;
-import com.food.recipe.api.model.response.SaveDocumentResponse;
+import com.food.recipe.api.model.document_response.DocumentInfoResponse;
+import com.food.recipe.api.model.document_response.DocumentListResponse;
+import com.food.recipe.api.model.document_response.SaveDocumentResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public interface DocumentService {
      * @param request
      * @return
      */
-    Boolean saveMultipleFile(SaveDocumentRequest request);
+    List<SaveDocumentResponse> saveMultipleFile(SaveDocumentRequest request);
 
     /**
      * Save document information via. base64 format

@@ -11,4 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 public interface PostService {
 
     Boolean createPost(PostRequest request);
+
+    Boolean createPost(MultipartFile[] files, String username, Long id);
 }

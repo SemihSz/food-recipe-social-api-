@@ -2,9 +2,9 @@ package com.food.recipe.api.service.document;
 
 import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
 import com.food.recipe.api.model.request.document.SaveDocumentRequest;
-import com.food.recipe.api.model.response.DocumentInfoResponse;
-import com.food.recipe.api.model.response.DocumentListResponse;
-import com.food.recipe.api.model.response.SaveDocumentResponse;
+import com.food.recipe.api.model.document_response.DocumentInfoResponse;
+import com.food.recipe.api.model.document_response.DocumentListResponse;
+import com.food.recipe.api.model.document_response.SaveDocumentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Boolean saveMultipleFile(SaveDocumentRequest request) {
+    public List<SaveDocumentResponse> saveMultipleFile(SaveDocumentRequest request) {
         return saveMultipartDocumentService.apply(request);
     }
 }

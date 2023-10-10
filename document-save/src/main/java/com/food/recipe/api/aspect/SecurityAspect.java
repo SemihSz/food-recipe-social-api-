@@ -1,8 +1,8 @@
 package com.food.recipe.api.aspect;
 
 import com.food.recipe.api.Constant;
+import com.food.recipe.api.client.ServiceRestClient;
 import com.food.recipe.api.model.RestClientRequest;
-import com.food.recipe.api.service.client.ServiceRestClient;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,7 +10,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,10 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 @RequiredArgsConstructor
-public class TokenAspect {
+public class SecurityAspect {
 
     public static final String USER_ID = "USER_ID";
 
@@ -32,32 +34,32 @@ public class TokenAspect {
 
     private final ServiceRestClient<Object> serviceRestClient;
 
-    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *) && execution(* com.food.recipe.api.controller.*.*(..))")
-    public void allMethods() {
-    }
+//    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *) && execution(* com.food.recipe.api.controller.*.*(..))")
+//    public void allMethods() {
+//    }
 
  /*   @Pointcut("within(@org.springframework.web.bind.annotation.RestController *) && execution(* com.crypto.controller.*..*(..))")
     public void allMethods() {
     }*/
 
 
-    @Around(" allMethods()")
-    public Object validateAspect(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-
-        final HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        final MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
-        final Method method = signature.getMethod();
-
-        final String userId = request.getHeader(USER_ID);
-        final String username = request.getHeader(USERNAME);
-
-        String token = request.getHeader("Authorization");
-        if (token == null || !isValid(token, userId, username)) {
-            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Unauthorized");
-        }
-
-        return proceedingJoinPoint.proceed();
-    }
+//    @Around(" allMethods()")
+//    public Object validateAspect(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+//
+//        final HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+//        final MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+//        final Method method = signature.getMethod();
+//
+//        final String userId = request.getHeader(USER_ID);
+//        final String username = request.getHeader(USERNAME);
+//
+//        String token = request.getHeader("Authorization");
+//        if (token == null || !isValid(token, userId, username)) {
+//            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+//        }
+//
+//        return proceedingJoinPoint.proceed();
+//    }
 
 
     public boolean isValid (String token, String userId, String username) {

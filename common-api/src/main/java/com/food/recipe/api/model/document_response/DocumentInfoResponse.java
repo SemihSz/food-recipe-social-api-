@@ -1,6 +1,5 @@
-package com.food.recipe.api.model.response;
+package com.food.recipe.api.model.document_response;
 
-import com.food.recipe.api.model.DocumentInfoDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

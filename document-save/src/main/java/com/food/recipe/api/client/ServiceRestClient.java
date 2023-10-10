@@ -1,16 +1,18 @@
-package com.food.recipe.api.service.client;
+package com.food.recipe.api.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.food.recipe.api.Mappers;
-import com.food.recipe.api.config.RequestResponseLoggingInterceptor;
+import com.food.recipe.api.interceptor.RequestResponseLoggingInterceptor;
 import com.food.recipe.api.model.RestClientRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -43,26 +45,14 @@ public class ServiceRestClient<T> implements Mappers<RestClientRequest, Class<T>
         try {
             if (HttpMethod.POST.equals(request.getRequestMethod())) {
                 // Bu bir POST isteği ise, gerekli değişiklikleri yapın
-                if (Objects.isNull(request.getFormBody())) {
-                    final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, new HttpEntity<>(request.getBody(),
-                            request.getHttpHeaders()), responseModel);
-                    if (response.getStatusCode() == HttpStatus.OK) {
-                        String someJsonString = mapper.writeValueAsString(response.getBody());
-                        return mapper.readValue(someJsonString, responseModel);
-                    }
-                    else {
-                        errorHandler(response);
-                    }
+                final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, new HttpEntity<>(request.getBody(),
+                        request.getHttpHeaders()), responseModel);
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    String someJsonString = mapper.writeValueAsString(response.getBody());
+                    return mapper.readValue(someJsonString, responseModel);
                 }
                 else {
-                    HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(request.getFormBody(), request.getHttpHeaders());
-                    final ResponseEntity<T> response = restTemplate.exchange(request.getUrl(), HttpMethod.POST, httpEntity, responseModel);
-                    if (response.getStatusCode() == HttpStatus.OK) {
-                        String someJsonString = mapper.writeValueAsString(response.getBody());
-                        return mapper.readValue(someJsonString, responseModel);
-                    } else {
-                        errorHandler(response);
-                    }
+                    errorHandler(response);
                 }
 
             } else {

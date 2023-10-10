@@ -6,7 +6,7 @@ import com.food.recipe.api.entity.DocumentEntity;
 import com.food.recipe.api.exception.BusinessException;
 import com.food.recipe.api.model.Base64Files;
 import com.food.recipe.api.model.request.document.SaveDocumentBase64Request;
-import com.food.recipe.api.model.response.SaveDocumentResponse;
+import com.food.recipe.api.model.document_response.SaveDocumentResponse;
 import com.food.recipe.api.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

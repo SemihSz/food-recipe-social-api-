@@ -1,9 +1,11 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
+import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.repository.post.PostRepository;
 import com.food.recipe.api.service.PostService;
+import com.food.recipe.api.service.executable.post.SaveFileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
+    private final SaveFileService saveFileService;
+
     @Override
     public Boolean createPost(PostRequest request) {
 
@@ -35,5 +39,17 @@ public class PostServiceImpl implements PostService {
         }
 
         return null;
+    }
+
+    @Override
+    public Boolean createPost(MultipartFile[] files, String username, Long id) {
+
+        final SaveFileInput saveFileInput = SaveFileInput.builder()
+                .userId(id)
+                .username(username)
+                .files(files)
+                .build();
+
+        return saveFileService.apply(saveFileInput);
     }
 }

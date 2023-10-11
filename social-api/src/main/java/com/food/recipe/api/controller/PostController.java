@@ -35,6 +35,6 @@ public class PostController {
                                                                                                 @RequestParam("username") String username,
                                                                                                 @RequestParam("id") Long id) {
 
-        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(file, username, id)));
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPostViaFile(file, username, id)));
     }
 }

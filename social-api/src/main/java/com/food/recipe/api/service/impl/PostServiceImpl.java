@@ -1,10 +1,14 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
+import com.food.recipe.api.entity.post.SavedPostEntity;
+import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
+import com.food.recipe.api.model.request.post.CommentRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.repository.post.PostRepository;
+import com.food.recipe.api.repository.user.SocialUserRepository;
 import com.food.recipe.api.service.PostService;
 import com.food.recipe.api.service.executable.post.SaveFileService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,8 @@ public class PostServiceImpl implements PostService {
 
     private final SaveFileService saveFileService;
 
+    private final SocialUserRepository socialUserRepository;
+
     @Override
     public Boolean createPost(PostRequest request) {
 
@@ -44,14 +50,35 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<SaveDocumentResponse> createPost(MultipartFile[] files, String username, Long id) {
+    public List<SaveDocumentResponse> createPostViaFile(MultipartFile[] files, String username, Long id) {
 
-        final SaveFileInput saveFileInput = SaveFileInput.builder()
-                .userId(id)
-                .username(username)
-                .files(files)
-                .build();
+        final SocialUserEntity socialUserEntity = socialUserRepository.getUser(username, id);
 
-        return saveFileService.apply(saveFileInput);
+        if (Objects.nonNull(socialUserEntity)) {
+
+            final SaveFileInput saveFileInput = SaveFileInput.builder()
+                    .userId(id)
+                    .username(username)
+                    .files(files)
+                    .build();
+
+            final List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
+//            for (SaveDocumentResponse documentResponse: response) {
+//                final PostEntity
+//                final SavedPostEntity savedPostEntity = SavedPostEntity.builder()
+//                        .p
+//                        .build();
+//            }
+
+
+            return response;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Boolean addComment(CommentRequest request) {
+        return null;
     }
 }

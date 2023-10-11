@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Created by Semih, 1.10.2023
  */
@@ -25,6 +27,8 @@ public class PostEntity {
     @Size(max = 100)
     private String description;
 
-    @NotBlank
-    private String imagePath;
+    private String imageName;
+
+    @ElementCollection
+    private List<Long> imageId;
 }

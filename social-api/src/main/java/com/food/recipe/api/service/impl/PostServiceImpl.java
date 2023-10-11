@@ -7,6 +7,7 @@ import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.model.request.post.CommentRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
+import com.food.recipe.api.model.response.CreatePostResponse;
 import com.food.recipe.api.repository.post.PostRepository;
 import com.food.recipe.api.repository.user.SocialUserRepository;
 import com.food.recipe.api.service.PostService;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,37 +52,38 @@ public class PostServiceImpl implements PostService {
         return null;
     }
 
-    @Override
-    public List<SaveDocumentResponse> createPostViaFile(MultipartFile[] files, String username, Long id) {
-
-        final SocialUserEntity socialUserEntity = socialUserRepository.getUser(username, id);
-
-        if (Objects.nonNull(socialUserEntity)) {
-
-            final SaveFileInput saveFileInput = SaveFileInput.builder()
-                    .userId(id)
-                    .username(username)
-                    .files(files)
-                    .build();
-
-            final List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
-            final List<Long> documentId = new ArrayList<>();
-
-            for (SaveDocumentResponse documentResponse: response) {
-                documentId.add(documentResponse.getDocumentId());
-            }
-
-//            // TODO Change this service request params into æ model.
-//            final PostEntity postEntity = PostEntity.builder()
-//                    .imageId(documentId)
-//                    .description()
-//                        .build()
-
-            return response;
+@Override
+public CreatePostResponse createPostViaFile(MultipartFile[] files, String username, Long id) {
+    SocialUserEntity socialUserEntity = socialUserRepository.getUser(username, id);
+    if (Objects.nonNull(socialUserEntity)) {
+        SaveFileInput saveFileInput = SaveFileInput.builder()
+                .userId(id)
+                .username(username)
+                .files(files)
+                .build();
+        List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
+        List<Long> documentIdList = new ArrayList<>();
+        for (SaveDocumentResponse documentResponse : response) {
+            documentIdList.add(documentResponse.getDocumentId());
         }
-
-        return null;
+        // TODO: Retrieve data from request parameters
+        PostEntity postEntity = PostEntity.builder()
+                .description("Deneme!")
+                .imageId(documentIdList)
+                .build();
+        SavedPostEntity savedPostEntity = SavedPostEntity.builder()
+                .post(postEntity)
+                .user(socialUserEntity)
+                .build();
+        if (Objects.nonNull(savedPostEntity)) {
+            return CreatePostResponse.builder()
+                    .createdDate(LocalDateTime.now())
+                    .postId(savedPostEntity.getId())
+                    .build();
+        }
     }
+    return null;
+}
 
     @Override
     public Boolean addComment(CommentRequest request) {

@@ -1,8 +1,8 @@
 package com.food.recipe.api.service;
 
-import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.request.post.CommentRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
+import com.food.recipe.api.model.response.CreatePostResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +16,7 @@ public interface PostService {
 
     Boolean createPost(PostRequest request);
 
-    List<SaveDocumentResponse> createPostViaFile(MultipartFile[] files, String username, Long id);
+    CreatePostResponse createPostViaFile(MultipartFile[] files, String username, Long id);
 
     Boolean addComment(CommentRequest request);
 }

@@ -1,6 +1,7 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
+import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.repository.post.PostRepository;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -42,7 +44,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Boolean createPost(MultipartFile[] files, String username, Long id) {
+    public List<SaveDocumentResponse> createPost(MultipartFile[] files, String username, Long id) {
 
         final SaveFileInput saveFileInput = SaveFileInput.builder()
                 .userId(id)

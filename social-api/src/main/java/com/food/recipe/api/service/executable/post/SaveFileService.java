@@ -5,6 +5,7 @@ import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.model.RestClientRequest;
 import com.food.recipe.api.model.document.Base64Files;
 import com.food.recipe.api.model.document.request.SaveDocumentBase64Request;
+import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.service.client.ServiceRestClient;
 import com.food.recipe.api.util.MultipartFileToBase64Utils;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,12 +34,12 @@ import java.util.Objects;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SaveFileService implements SimpleTask<SaveFileInput, Boolean> {
+public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocumentResponse>> {
 
-    private final ServiceRestClient<Object> serviceRestClient;
+    private final ServiceRestClient<SaveDocumentResponse> serviceRestClient;
 
     @Override
-    public Boolean apply(SaveFileInput saveFileInput) {
+    public List<SaveDocumentResponse> apply(SaveFileInput saveFileInput) {
 
         SaveDocumentBase64Request coreDocumentRequest = new SaveDocumentBase64Request();
         coreDocumentRequest.setUsername(saveFileInput.getUsername());
@@ -56,14 +58,13 @@ public class SaveFileService implements SimpleTask<SaveFileInput, Boolean> {
         }
         coreDocumentRequest.setFilesList(files);
 
-        // TODO  Required part 'file' is not present.]
-
-        final RestClientRequest restClientRequest = RestClientRequest.builder()
+        final RestClientRequest<?> restClientRequest = RestClientRequest.builder()
                 .url("http://localhost:9545".concat("/api/doc/v1/save-base64"))
                 .requestMethod(HttpMethod.POST)
                 .body(coreDocumentRequest)
                 .build();
 
-        return Objects.nonNull(serviceRestClient.apply(restClientRequest, Object.class));
+        List<SaveDocumentResponse> response = (List<SaveDocumentResponse>) serviceRestClient.apply(restClientRequest, SaveDocumentResponse.class);
+        return Objects.nonNull(response) ? response : Collections.emptyList();
     }
 }

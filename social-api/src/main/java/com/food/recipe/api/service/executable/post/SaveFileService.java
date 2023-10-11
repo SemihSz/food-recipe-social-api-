@@ -1,6 +1,5 @@
 package com.food.recipe.api.service.executable.post;
 
-import com.food.recipe.api.Constant;
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.model.RestClientRequest;
 import com.food.recipe.api.model.document.Base64Files;
@@ -11,22 +10,12 @@ import com.food.recipe.api.service.client.ServiceRestClient;
 import com.food.recipe.api.util.MultipartFileToBase64Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MultipartBody;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Semih, 10.10.2023
@@ -36,7 +25,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocumentResponse>> {
 
-    private final ServiceRestClient<SaveDocumentResponse> serviceRestClient;
+    private final ServiceRestClient<SaveDocumentResponse[]> serviceRestClient;
 
     @Override
     public List<SaveDocumentResponse> apply(SaveFileInput saveFileInput) {
@@ -75,8 +64,8 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
                 .body(coreDocumentRequest)
                 .build();
         // Send the request and get a response as a List of SaveDocumentResponse objects
-        List<SaveDocumentResponse> response = (List<SaveDocumentResponse>) serviceRestClient.apply(restClientRequest, SaveDocumentResponse.class);
+        SaveDocumentResponse[] response =  serviceRestClient.apply(restClientRequest, SaveDocumentResponse[].class);
         // Return the response if it is not null, otherwise return an empty list
-        return Objects.nonNull(response) ? response : Collections.emptyList();
+        return Objects.nonNull(response) ? Arrays.stream(response).toList(): Collections.emptyList();
     }
 }

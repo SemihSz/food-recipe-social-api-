@@ -125,7 +125,11 @@ public class SaveBase64DocumentService implements SimpleTask<SaveDocumentBase64R
                                 .build();
                         documentRepository.save(document);
                         log.info("SaveBase64DocumentService is successfully");
-                        documentResponseList.add(SaveDocumentResponse.builder().documentId(document.getId()).userId(document.getUserId()).fileName(document.getFileName()).build());
+                        SaveDocumentResponse saveDocumentResponse = new SaveDocumentResponse();
+                        saveDocumentResponse.setDocumentId(document.getId());
+                        saveDocumentResponse.setUserId(document.getUserId());
+                        saveDocumentResponse.setFileName(document.getFileName());
+                        documentResponseList.add(saveDocumentResponse);
                     }
                     // TODO TEST
                     // If total files size greater than 5MB, this else block will throw exception for user.

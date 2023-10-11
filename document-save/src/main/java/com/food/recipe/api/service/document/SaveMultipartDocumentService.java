@@ -63,7 +63,11 @@ public class SaveMultipartDocumentService implements SimpleTask<SaveDocumentRequ
                             .time(LocalDateTime.now())
                             .build();
                     documentRepository.save(document);
-                    documentResponseList.add(SaveDocumentResponse.builder().documentId(document.getId()).userId(document.getUserId()).fileName(document.getFileName()).build());
+                    SaveDocumentResponse saveDocumentResponse = new SaveDocumentResponse();
+                    saveDocumentResponse.setDocumentId(document.getId());
+                    saveDocumentResponse.setUserId(document.getUserId());
+                    saveDocumentResponse.setFileName(document.getFileName());
+                    documentResponseList.add(saveDocumentResponse);
 
                 } catch (IOException e) {
                     throw new BusinessException( "İşlemlerinizi şu vakit gerçekleştiremiyoruz.");

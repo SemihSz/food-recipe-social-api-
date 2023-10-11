@@ -54,8 +54,13 @@ public class SaveDocumentService implements SimpleTask<SaveDocumentRequest, Save
                     .time(LocalDateTime.now())
                     .build();
             documentRepository.save(document);
-            return SaveDocumentResponse.builder().documentId(document.getId())
-                    .userId(document.getUserId()).fileName(document.getFileName()).build();
+
+            SaveDocumentResponse saveDocumentResponse = new SaveDocumentResponse();
+            saveDocumentResponse.setDocumentId(document.getId());
+            saveDocumentResponse.setUserId(document.getUserId());
+            saveDocumentResponse.setFileName(document.getFileName());
+
+            return saveDocumentResponse;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

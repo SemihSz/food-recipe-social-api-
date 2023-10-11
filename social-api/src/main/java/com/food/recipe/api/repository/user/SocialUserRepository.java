@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SocialUserRepository extends JpaRepository<SocialUserEntity, Long> {
 
-    @Query(value = "SELECT * FROM social_user_entity t WHERE t.username:username AND t.id:id",nativeQuery = true)
+    @Query(value = "SELECT * FROM social_user_entity t WHERE t.username=:username AND t.id=:id",nativeQuery = true)
     SocialUserEntity getUser(@Param("username") String username, @Param("id") Long id);
 }

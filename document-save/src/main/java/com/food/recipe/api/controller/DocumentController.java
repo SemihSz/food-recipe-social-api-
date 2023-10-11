@@ -57,10 +57,10 @@ public class DocumentController {
     }
 
     @PostMapping(value = "/save-base64", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestResponse<List<SaveDocumentResponse>>> uploadBase64Document(@ApiParam(required = true, value = "Save document with base64 string request model body")
+    public ResponseEntity<List<SaveDocumentResponse>> uploadBase64Document(@ApiParam(required = true, value = "Save document with base64 string request model body")
                                                                                              @RequestBody SaveDocumentBase64Request request) {
 
-        return ResponseEntity.ok(new RestResponse<>(200, documentService.saveBase64(request)));
+        return ResponseEntity.ok(documentService.saveBase64(request));
     }
 
     @GetMapping("/document-list/{username}")

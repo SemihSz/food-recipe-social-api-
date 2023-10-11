@@ -1,16 +1,18 @@
 package com.food.recipe.api.model.document.response;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * Created by Semih, 9.10.2023
  */
 @Getter
 @Setter
-@Builder
-public class SaveDocumentResponse {
+@NoArgsConstructor
+public class SaveDocumentResponse implements Serializable {
 
     private Long documentId;
 

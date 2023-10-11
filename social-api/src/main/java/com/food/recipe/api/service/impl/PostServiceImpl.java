@@ -9,6 +9,7 @@ import com.food.recipe.api.model.request.post.CommentRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
 import com.food.recipe.api.repository.post.PostRepository;
+import com.food.recipe.api.repository.post.SavedPostRepository;
 import com.food.recipe.api.repository.user.SocialUserRepository;
 import com.food.recipe.api.service.PostService;
 import com.food.recipe.api.service.executable.post.SaveFileService;
@@ -31,6 +32,8 @@ import java.util.Objects;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+
+    private final SavedPostRepository savedPostRepository;
 
     private final SaveFileService saveFileService;
 
@@ -67,17 +70,19 @@ public CreatePostResponse createPostViaFile(MultipartFile[] files, String userna
             documentIdList.add(documentResponse.getDocumentId());
         }
         // TODO: Retrieve data from request parameters
-        PostEntity postEntity = PostEntity.builder()
+        final PostEntity postEntity = PostEntity.builder()
                 .description("Deneme!")
                 .imageId(documentIdList)
                 .build();
-        SavedPostEntity savedPostEntity = SavedPostEntity.builder()
+        final SavedPostEntity savedPostEntity = SavedPostEntity.builder()
                 .post(postEntity)
                 .user(socialUserEntity)
                 .build();
+
         if (Objects.nonNull(savedPostEntity)) {
+            savedPostRepository.save(savedPostEntity);
             return CreatePostResponse.builder()
-                    .createdDate(LocalDateTime.now())
+                    .createdDate(LocalDateTime.now().toString())
                     .postId(savedPostEntity.getId())
                     .build();
         }

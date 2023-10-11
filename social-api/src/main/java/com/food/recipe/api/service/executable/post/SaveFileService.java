@@ -40,31 +40,43 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
 
     @Override
     public List<SaveDocumentResponse> apply(SaveFileInput saveFileInput) {
-
+        // Create a new SaveDocumentBase64Request object
         SaveDocumentBase64Request coreDocumentRequest = new SaveDocumentBase64Request();
+        // Set the username and userId of the request object
         coreDocumentRequest.setUsername(saveFileInput.getUsername());
         coreDocumentRequest.setUserId(saveFileInput.getUserId());
+
+        // Create a list to hold Base64Files objects
         final List<Base64Files> files = new ArrayList<>();
+        // Loop through each MultipartFile in the input's files list
         for (MultipartFile file : saveFileInput.getFiles()) {
+            // Create a new Base64Files object
             final Base64Files base64File = new Base64Files();
+            // Set the file type and name of the Base64Files object
             base64File.setFileType(file.getContentType());
             base64File.setFileName(file.getOriginalFilename());
             try {
+                // Convert the MultipartFile to a base64 string and set it in the Base64Files object
                 base64File.setBase64Data(MultipartFileToBase64Utils.convert(file));
             } catch (IOException e) {
+                // Throw a RuntimeException if there is an IOException
                 throw new RuntimeException(e);
             }
+            // Add the Base64Files object to the list of files
             files.add(base64File);
         }
+        // Set the files list of the request object
         coreDocumentRequest.setFilesList(files);
 
+        // Create a new RestClientRequest object
         final RestClientRequest<?> restClientRequest = RestClientRequest.builder()
                 .url("http://localhost:9545".concat("/api/doc/v1/save-base64"))
                 .requestMethod(HttpMethod.POST)
                 .body(coreDocumentRequest)
                 .build();
-
+        // Send the request and get a response as a List of SaveDocumentResponse objects
         List<SaveDocumentResponse> response = (List<SaveDocumentResponse>) serviceRestClient.apply(restClientRequest, SaveDocumentResponse.class);
+        // Return the response if it is not null, otherwise return an empty list
         return Objects.nonNull(response) ? response : Collections.emptyList();
     }
 }

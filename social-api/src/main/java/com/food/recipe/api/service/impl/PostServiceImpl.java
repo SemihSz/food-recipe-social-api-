@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,13 +64,17 @@ public class PostServiceImpl implements PostService {
                     .build();
 
             final List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
-//            for (SaveDocumentResponse documentResponse: response) {
-//                final PostEntity
-//                final SavedPostEntity savedPostEntity = SavedPostEntity.builder()
-//                        .p
-//                        .build();
-//            }
+            final List<Long> documentId = new ArrayList<>();
 
+            for (SaveDocumentResponse documentResponse: response) {
+                documentId.add(documentResponse.getDocumentId());
+            }
+
+//            // TODO Change this service request params into æ model.
+//            final PostEntity postEntity = PostEntity.builder()
+//                    .imageId(documentId)
+//                    .description()
+//                        .build()
 
             return response;
         }

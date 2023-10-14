@@ -1,4 +1,4 @@
-package com.food.recipe.api.repository.post;
+package com.food.recipe.api.repository.post.comment;
 
 import com.food.recipe.api.entity.post.comment.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.food.recipe.api.Mappers;
 import com.food.recipe.api.config.RequestResponseLoggingInterceptor;
+import com.food.recipe.api.exception.SocialApiAuthException;
 import com.food.recipe.api.model.RestClientRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -69,7 +70,14 @@ public class ServiceRestClient<T> implements Mappers<RestClientRequest, Class<T>
                 }
             }
         } catch (RestClientException e) {
+            // TODO Fix here so many hardcoded area
             log.error("RestClientException occurred while calling {}: {}", request.getUrl(), e.getMessage());
+            if (e instanceof HttpClientErrorException && ((HttpClientErrorException) e).getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                log.error("HTTP 401 Unauthorized!");
+                throw new SocialApiAuthException("HTTP 401 Unauthorized!");
+            } else {
+                log.error("Beklenmeyen bir HTTP hatası oluştu: " + e.getMessage());
+            }
             return null;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -96,6 +104,7 @@ public class ServiceRestClient<T> implements Mappers<RestClientRequest, Class<T>
             log.error("Response Body: {}", response.getBody());
             log.error("Response Headers: {}", response.getHeaders());
 
+            // TODO throw here exception
             // You can also return a custom error message or throw an exception.
             // throw new MyCustomException("HTTP Request failed with status code: " + response.getStatusCode());
         }

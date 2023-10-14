@@ -7,14 +7,12 @@ import com.food.recipe.api.model.document.request.SaveDocumentBase64Request;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.service.client.ServiceRestClient;
-import com.food.recipe.api.util.MultipartFileToBase64Utils;
+import com.food.recipe.api.service.executable.converter.ConvertBase64Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -27,6 +25,8 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
 
     private final ServiceRestClient<SaveDocumentResponse[]> serviceRestClient;
 
+    private final ConvertBase64Service convertBase64Service;
+
     @Override
     public List<SaveDocumentResponse> apply(SaveFileInput saveFileInput) {
         // Create a new SaveDocumentBase64Request object
@@ -36,24 +36,11 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
         coreDocumentRequest.setUserId(saveFileInput.getUserId());
 
         // Create a list to hold Base64Files objects
-        final List<Base64Files> files = new ArrayList<>();
-        // Loop through each MultipartFile in the input's files list
-        for (MultipartFile file : saveFileInput.getFiles()) {
-            // Create a new Base64Files object
-            final Base64Files base64File = new Base64Files();
-            // Set the file type and name of the Base64Files object
-            base64File.setFileType(file.getContentType());
-            base64File.setFileName(file.getOriginalFilename());
-            try {
-                // Convert the MultipartFile to a base64 string and set it in the Base64Files object
-                base64File.setBase64Data(MultipartFileToBase64Utils.convert(file));
-            } catch (IOException e) {
-                // Throw a RuntimeException if there is an IOException
-                throw new RuntimeException(e);
-            }
-            // Add the Base64Files object to the list of files
-            files.add(base64File);
-        }
+        List<Base64Files> files = new ArrayList<>();
+
+        // controlling multipart files with ? operator
+        files = Objects.nonNull(saveFileInput.getFiles()) ? convertBase64Service.apply(saveFileInput.getFiles()) : saveFileInput.getBase64StringList();
+
         // Set the files list of the request object
         coreDocumentRequest.setFilesList(files);
 

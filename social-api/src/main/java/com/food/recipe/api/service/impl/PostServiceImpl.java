@@ -3,6 +3,7 @@ package com.food.recipe.api.service.impl;
 import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.post.SavedPostEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
+import com.food.recipe.api.model.document.Base64Files;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.model.request.post.CommentRequest;
@@ -12,6 +13,7 @@ import com.food.recipe.api.repository.post.PostRepository;
 import com.food.recipe.api.repository.post.SavedPostRepository;
 import com.food.recipe.api.repository.user.SocialUserRepository;
 import com.food.recipe.api.service.PostService;
+import com.food.recipe.api.service.executable.converter.ConvertBase64Service;
 import com.food.recipe.api.service.executable.post.SaveFileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,14 +43,19 @@ public class PostServiceImpl implements PostService {
 
     private final SocialUserRepository socialUserRepository;
 
+    private final ConvertBase64Service convertBase64Service;
+
     @Override
     public CreatePostResponse createPost(PostRequest request) {
 
-        SocialUserEntity socialUserEntity = socialUserRepository.getUser(request.getUsername(), request.getId());
+        final SocialUserEntity socialUserEntity = socialUserRepository.getUser(request.getUsername(), request.getId());
+
         if (Objects.nonNull(socialUserEntity)) {
+
             final SaveFileInput.SaveFileInputBuilder builder =  SaveFileInput.builder();
             builder.userId(request.getId())
                     .username(request.getUsername());
+
             if (Objects.nonNull(request.getBase64ImageList()) && CollectionUtils.isEmpty(request.getBase64ImageList())) {
                 builder.base64String(request.getBase64StringImage());
             }
@@ -56,14 +63,15 @@ public class PostServiceImpl implements PostService {
                 builder.base64StringList(request.getBase64ImageList());
             }
 
-            List<SaveDocumentResponse> response = saveFileService.apply(builder.build());
+            final List<SaveDocumentResponse> response = saveFileService.apply(builder.build());
+
             List<Long> documentIdList = new ArrayList<>();
             for (SaveDocumentResponse documentResponse : response) {
                 documentIdList.add(documentResponse.getDocumentId());
             }
-            // TODO: Retrieve data from request parameters
+
             final PostEntity postEntity = PostEntity.builder()
-                    .description("Deneme!")
+                    .description(request.getDescription())
                     .imageId(documentIdList)
                     .build();
             final SavedPostEntity savedPostEntity = SavedPostEntity.builder()
@@ -84,14 +92,15 @@ public class PostServiceImpl implements PostService {
 
 @Override
 public CreatePostResponse createPostViaFile(MultipartFile[] files, String username, Long id) {
-    SocialUserEntity socialUserEntity = socialUserRepository.getUser(username, id);
+
+    final SocialUserEntity socialUserEntity = socialUserRepository.getUser(username, id);
     if (Objects.nonNull(socialUserEntity)) {
-        SaveFileInput saveFileInput = SaveFileInput.builder()
+        final SaveFileInput saveFileInput = SaveFileInput.builder()
                 .userId(id)
                 .username(username)
                 .files(files)
                 .build();
-        List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
+        final List<SaveDocumentResponse> response = saveFileService.apply(saveFileInput);
         List<Long> documentIdList = new ArrayList<>();
         for (SaveDocumentResponse documentResponse : response) {
             documentIdList.add(documentResponse.getDocumentId());
@@ -116,6 +125,11 @@ public CreatePostResponse createPostViaFile(MultipartFile[] files, String userna
     }
     return null;
 }
+
+    @Override
+    public List<Base64Files> convertMultipartBase64(MultipartFile[] files) {
+        return convertBase64Service.apply(files);
+    }
 
     @Override
     public Boolean addComment(CommentRequest request) {

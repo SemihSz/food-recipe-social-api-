@@ -32,4 +32,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
+    @ExceptionHandler(SocialApiAuthException.class)
+    public ResponseEntity<ExceptionResponse> authTokenError(SocialApiAuthException ex) {
+
+        final ExceptionResponse response = new ExceptionResponse();
+        response.setErrorCode(HttpStatus.UNAUTHORIZED.value());
+        response.setErrorMessage(ex.getMessage());
+        response.setTimestamp(LocalDateTime.now());
+
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
 }

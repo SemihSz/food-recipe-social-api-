@@ -1,6 +1,7 @@
 package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
+import com.food.recipe.api.model.document.Base64Files;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
@@ -27,10 +28,17 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create-post")
-    public ResponseEntity<RestResponse<Boolean>> createPost(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<RestResponse<CreatePostResponse>> createPost(@RequestBody PostRequest postRequest) {
 
-        return null;// ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
     }
+
+    @PostMapping(value = "/convert-base64", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RestResponse<List<Base64Files>>> convertBase64(@RequestParam("file") MultipartFile[] file) {
+
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.convertMultipartBase64(file)));
+    }
+
 
     @PostMapping(value = "/create-post-via-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<RestResponse<CreatePostResponse>> createPostWithMultiPartFile(@RequestParam("file") MultipartFile[] file,

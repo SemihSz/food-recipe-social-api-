@@ -1,16 +1,8 @@
 package com.food.recipe.api.repository.post;
 
-import com.food.recipe.api.entity.post.CommentEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.food.recipe.api.entity.post.comment.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.xml.stream.events.Comment;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by Semih, 1.10.2023

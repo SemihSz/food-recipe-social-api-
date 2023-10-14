@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public class PostController {
     @PostMapping("/create-post")
     public ResponseEntity<RestResponse<Boolean>> createPost(@RequestBody PostRequest postRequest) {
 
-        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
+        return null;// ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
     }
 
     @PostMapping(value = "/create-post-via-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

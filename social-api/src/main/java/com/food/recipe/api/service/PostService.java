@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public interface PostService {
 
-    Boolean createPost(PostRequest request);
+    CreatePostResponse createPost(PostRequest request);
 
     CreatePostResponse createPostViaFile(MultipartFile[] files, String username, Long id);
 

@@ -8,6 +8,7 @@ import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
+import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import com.food.recipe.api.service.CommentService;
 import com.food.recipe.api.service.executable.comment.AddCommentService;
 import com.food.recipe.api.service.executable.comment.DeleteCommentService;
@@ -55,7 +56,6 @@ public class CommentServiceImpl implements CommentService {
         if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation)) {
 
             final AddCommentInput commentInput = AddCommentInput.builder()
-
                     .description(createCommentRequest.getDescription())
                     .post(getPostInformation)
                     .user(socialUserEntity)
@@ -106,6 +106,11 @@ public class CommentServiceImpl implements CommentService {
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public SelectedPostCommentsResponse selectedPostComments(Long postId) {
         return null;
     }
 }

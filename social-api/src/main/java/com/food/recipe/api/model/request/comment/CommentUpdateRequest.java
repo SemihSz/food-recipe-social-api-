@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class CommentUpdateRequest extends CommentBaseRequest {
 
+    private String description;
+
 }

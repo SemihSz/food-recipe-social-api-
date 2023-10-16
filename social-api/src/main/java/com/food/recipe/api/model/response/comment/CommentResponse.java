@@ -11,4 +11,9 @@ import lombok.Data;
 public class CommentResponse {
 
     private Long commentId;
+
+    private boolean isDeleted;
+
+    private boolean isUpdated;
+
 }

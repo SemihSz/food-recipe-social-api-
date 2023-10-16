@@ -1,15 +1,18 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
+import com.food.recipe.api.entity.post.comment.CommentEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
-import com.food.recipe.api.repository.post.comment.CommentRepository;
 import com.food.recipe.api.service.CommentService;
 import com.food.recipe.api.service.executable.comment.AddCommentService;
+import com.food.recipe.api.service.executable.comment.DeleteCommentService;
+import com.food.recipe.api.service.executable.comment.GetCommentInformationService;
+import com.food.recipe.api.service.executable.comment.UpdateCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +29,23 @@ import java.util.Objects;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private final CommentRepository commentRepository;
-
     private final GetPostInformationService getPostInformationService;
 
     private final GetSocialAppUserInfoService getSocialAppUserInfoService;
 
+    private final GetCommentInformationService getCommentInformationService;
+
     private final AddCommentService addCommentService;
 
+    private final UpdateCommentService updateCommentService;
+
+    private final DeleteCommentService deleteCommentService;
+
+    /**
+     * Add comment service layer
+     * @param createCommentRequest
+     * @return
+     */
     @Override
     public CommentResponse addComment(CreateCommentRequest createCommentRequest) {
 
@@ -55,13 +67,45 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
+    /**
+     * Updated comment service layer
+     * @param commentUpdateRequest
+     * @return
+     */
     @Override
     public CommentResponse updateComment(CommentUpdateRequest commentUpdateRequest) {
+
+        final CommentEntity comment = getCommentInformationService.apply(commentUpdateRequest.getCommentId());
+
+        if (Objects.nonNull(comment)) {
+            final boolean isUpdatedComment = updateCommentService.test(commentUpdateRequest, comment);
+
+            if (Boolean.TRUE.equals(isUpdatedComment)) {
+                return CommentResponse.builder().commentId(comment.getId()).isUpdated(Boolean.TRUE).build();
+            }
+        }
+
         return null;
     }
 
+    /**
+     * Delete comment information layer
+     * @param commentDeleteRequest
+     * @return
+     */
     @Override
     public CommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest) {
+
+        final CommentEntity comment = getCommentInformationService.apply(commentDeleteRequest.getCommentId());
+
+        if (Objects.nonNull(comment)) {
+            final boolean isDeletedComment = deleteCommentService.test(comment);
+
+            if (Boolean.TRUE.equals(isDeletedComment)) {
+                return CommentResponse.builder().isDeleted(Boolean.TRUE).build();
+            }
+        }
+
         return null;
     }
 }

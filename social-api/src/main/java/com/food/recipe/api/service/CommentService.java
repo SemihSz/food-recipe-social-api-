@@ -1,6 +1,8 @@
 package com.food.recipe.api.service;
 
-import com.food.recipe.api.model.request.comment.CommentRequest;
+import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
+import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
+import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,13 @@ public interface CommentService {
 
     /**
      *
-     * @param commentRequest
+     * @param createCommentRequest
      * @return
      */
-    CommentResponse addComment(CommentRequest commentRequest);
+    CommentResponse addComment(CreateCommentRequest createCommentRequest);
 
+    CommentResponse updateComment(CommentUpdateRequest commentUpdateRequest);
 
-
-
+    CommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest);
 
 }

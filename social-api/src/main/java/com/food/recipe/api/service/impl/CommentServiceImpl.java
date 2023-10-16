@@ -3,7 +3,9 @@ package com.food.recipe.api.service.impl;
 import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
-import com.food.recipe.api.model.request.comment.CommentRequest;
+import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
+import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
+import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import com.food.recipe.api.repository.post.comment.CommentRepository;
 import com.food.recipe.api.service.CommentService;
@@ -33,16 +35,16 @@ public class CommentServiceImpl implements CommentService {
     private final AddCommentService addCommentService;
 
     @Override
-    public CommentResponse addComment(CommentRequest commentRequest) {
+    public CommentResponse addComment(CreateCommentRequest createCommentRequest) {
 
-        final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(commentRequest.getUserId(), commentRequest.getUsername());
-        final PostEntity getPostInformation = getPostInformationService.apply(commentRequest.getPostId());
+        final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(createCommentRequest.getUserId(), createCommentRequest.getUsername());
+        final PostEntity getPostInformation = getPostInformationService.apply(createCommentRequest.getPostId());
 
         if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation)) {
 
             final AddCommentInput commentInput = AddCommentInput.builder()
 
-                    .description(commentRequest.getDescription())
+                    .description(createCommentRequest.getDescription())
                     .post(getPostInformation)
                     .user(socialUserEntity)
                     .build();
@@ -50,6 +52,16 @@ public class CommentServiceImpl implements CommentService {
             return addCommentService.apply(commentInput);
         }
 
+        return null;
+    }
+
+    @Override
+    public CommentResponse updateComment(CommentUpdateRequest commentUpdateRequest) {
+        return null;
+    }
+
+    @Override
+    public CommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest) {
         return null;
     }
 }

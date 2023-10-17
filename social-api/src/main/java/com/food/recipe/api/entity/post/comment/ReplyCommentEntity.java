@@ -33,6 +33,10 @@ public class ReplyCommentEntity {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(name = "post_entity.id", nullable = false)
     private PostEntity post;

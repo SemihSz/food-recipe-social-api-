@@ -45,6 +45,7 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
         coreDocumentRequest.setFilesList(files);
 
         // Create a new RestClientRequest object
+        // TODO Header add parameter for save operation.
         final RestClientRequest<?> restClientRequest = RestClientRequest.builder()
                 .url("http://localhost:9545".concat("/api/doc/v1/save-base64"))
                 .requestMethod(HttpMethod.POST)

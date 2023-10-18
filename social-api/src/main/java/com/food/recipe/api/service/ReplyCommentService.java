@@ -1,8 +1,7 @@
 package com.food.recipe.api.service;
 
-import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
-import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
-import com.food.recipe.api.model.request.comment.CreateCommentRequest;
+import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
+import com.food.recipe.api.model.request.comment.reply.UpdateReplyCommentRequest;
 import com.food.recipe.api.model.response.comment.reply.ReplyCommentResponse;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +10,21 @@ public interface ReplyCommentService {
 
   /**
    *
-   * @param createCommentRequest
-   * @return CommentResponse
+   * @param request
+   * @return ReplyCommentResponse
    */
-  ReplyCommentResponse addComment(CreateCommentRequest createCommentRequest);
+  ReplyCommentResponse addComment(BaseReplyCommentRequest request);
 
   /**
-   * @param commentUpdateRequest
-   * @return CommentResponse
+   * @param request
+   * @return ReplyCommentResponse
    */
-  ReplyCommentResponse updateComment(CommentUpdateRequest commentUpdateRequest);
+  ReplyCommentResponse updateComment(UpdateReplyCommentRequest request);
 
   /**
    *
-   * @param commentDeleteRequest
-   * @return CommentResponse
+   * @param request
+   * @return ReplyCommentResponse
    */
-  ReplyCommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest);
+  ReplyCommentResponse deleteComment(BaseReplyCommentRequest request);
 }

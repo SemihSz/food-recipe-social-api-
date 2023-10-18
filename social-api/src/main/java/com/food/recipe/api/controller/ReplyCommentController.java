@@ -4,6 +4,8 @@ import com.food.recipe.api.model.RestResponse;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
+import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
+import com.food.recipe.api.model.request.comment.reply.UpdateReplyCommentRequest;
 import com.food.recipe.api.model.response.comment.reply.ReplyCommentResponse;
 import com.food.recipe.api.service.ReplyCommentService;
 import lombok.RequiredArgsConstructor;
@@ -24,19 +26,19 @@ public class ReplyCommentController {
   private final ReplyCommentService replyCommentService;
 
   @PostMapping("/add")
-  public ResponseEntity<RestResponse<ReplyCommentResponse>> addComment(@RequestBody CreateCommentRequest createCommentRequest) {
+  public ResponseEntity<RestResponse<ReplyCommentResponse>> addComment(@RequestBody BaseReplyCommentRequest createCommentRequest) {
 
     return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, replyCommentService.addComment(createCommentRequest)));
   }
 
   @DeleteMapping("/delete")
-  public ResponseEntity<RestResponse<ReplyCommentResponse>> deleteComment(@RequestBody CommentDeleteRequest commentDeleteRequest) {
+  public ResponseEntity<RestResponse<ReplyCommentResponse>> deleteComment(@RequestBody BaseReplyCommentRequest commentDeleteRequest) {
 
     return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, replyCommentService.deleteComment(commentDeleteRequest)));
   }
 
   @PutMapping("/update")
-  public ResponseEntity<RestResponse<ReplyCommentResponse>> updateComment(@RequestBody CommentUpdateRequest commentUpdateRequest) {
+  public ResponseEntity<RestResponse<ReplyCommentResponse>> updateComment(@RequestBody UpdateReplyCommentRequest commentUpdateRequest) {
 
     return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, replyCommentService.updateComment(commentUpdateRequest)));
   }

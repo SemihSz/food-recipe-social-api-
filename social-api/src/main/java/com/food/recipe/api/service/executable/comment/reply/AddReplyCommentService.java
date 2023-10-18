@@ -31,6 +31,6 @@ public class AddReplyCommentService implements SimpleTask<AddReplyCommentInput, 
 
     replyCommentRepository.save(replyComment);
 
-    return (ReplyCommentResponse) ReplyCommentResponse.builder().commentId(replyComment.getId()).build();
+    return ReplyCommentResponse.builder().commentId(replyComment.getId()).build();
   }
 }

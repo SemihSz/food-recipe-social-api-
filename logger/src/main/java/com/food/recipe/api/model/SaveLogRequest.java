@@ -1,5 +1,6 @@
 package com.food.recipe.api.model;
 
+import com.food.recipe.api.model.logger.ApplicationEnums;
 import lombok.Data;
 
 import java.util.Map;
@@ -9,6 +10,8 @@ import java.util.Map;
  */
 @Data
 public class SaveLogRequest {
+
+    private ApplicationEnums application;
 
     private String method;
 

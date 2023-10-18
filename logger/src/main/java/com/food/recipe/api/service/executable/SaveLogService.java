@@ -37,6 +37,7 @@ public class SaveLogService implements SimpleTask<SaveLogRequest, Boolean> {
                     .timeTaken(request.getTimeTaken())
                     .response(gson.toJson(request.getResponse()))
                     .createdAt(LocalDateTime.now())
+                    .application(request.getApplication())
                     .build();
 
             loggerEntityRepository.save(saveLogItem);

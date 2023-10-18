@@ -1,9 +1,6 @@
 package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
-import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
-import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
-import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
 import com.food.recipe.api.model.request.comment.reply.UpdateReplyCommentRequest;
 import com.food.recipe.api.model.response.comment.reply.ReplyCommentResponse;

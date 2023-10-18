@@ -16,14 +16,28 @@ public interface CommentService {
     /**
      *
      * @param createCommentRequest
-     * @return
+     * @return CommentResponse
      */
     CommentResponse addComment(CreateCommentRequest createCommentRequest);
 
+    /**
+     * @param commentUpdateRequest
+     * @return CommentResponse
+     */
     CommentResponse updateComment(CommentUpdateRequest commentUpdateRequest);
 
+    /**
+     *
+     * @param commentDeleteRequest
+     * @return CommentResponse
+     */
     CommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest);
 
+    /**
+     *
+     * @param postId
+     * @return SelectedPostCommentsResponse
+     */
     SelectedPostCommentsResponse selectedPostComments(Long postId);
 
 }

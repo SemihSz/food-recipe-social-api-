@@ -27,19 +27,19 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/add-comment")
+    @PostMapping("/add")
     public ResponseEntity<RestResponse<CommentResponse>> addComment(@RequestBody CreateCommentRequest createCommentRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, commentService.addComment(createCommentRequest)));
     }
 
-    @DeleteMapping("/delete-comment")
+    @DeleteMapping("/delete")
     public ResponseEntity<RestResponse<CommentResponse>> deleteComment(@RequestBody CommentDeleteRequest commentDeleteRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, commentService.deleteComment(commentDeleteRequest)));
     }
 
-    @PutMapping("/update-comment")
+    @PutMapping("/update")
     public ResponseEntity<RestResponse<CommentResponse>> updateComment(@RequestBody CommentUpdateRequest commentUpdateRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, commentService.updateComment(commentUpdateRequest)));

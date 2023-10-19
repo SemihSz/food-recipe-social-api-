@@ -12,6 +12,13 @@ public class Constant {
 
         public static final String AUTH_INFO = "/api/doc/v1/save-multipart";
 
+        public static class Logger {
+
+            public static final String LOGGER_SAVE = "/logger/save";
+            public Logger() {
+            }
+        }
+
     }
 
     public static class Exception {

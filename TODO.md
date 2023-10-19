@@ -7,4 +7,5 @@
 - Logger
   -  
     * Logger servisini ilgili api bağla
+    * ignore base64 file
     

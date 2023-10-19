@@ -1,6 +1,6 @@
 package com.food.recipe.api.service;
 
-import com.food.recipe.api.model.SaveLogRequest;
+import com.food.recipe.api.model.logger.SaveLogRequest;
 import org.springframework.stereotype.Service;
 
 /**

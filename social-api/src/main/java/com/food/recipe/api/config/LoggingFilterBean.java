@@ -1,6 +1,9 @@
 package com.food.recipe.api.config;
 
 import brave.Tracer;
+import com.food.recipe.api.model.logger.ApplicationEnums;
+import com.food.recipe.api.model.logger.SaveLogRequest;
+import com.food.recipe.api.service.executable.logger.LoggerService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -34,6 +37,8 @@ import static java.util.Collections.list;
 public class LoggingFilterBean extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingFilterBean.class);
+
+    private final LoggerService loggerService;
 
 
     @Override
@@ -75,6 +80,21 @@ public class LoggingFilterBean extends OncePerRequestFilter {
                 "FINISHED PROCESSING : METHOD={}; REQUEST_URI={};  REQUEST PAYLOAD={}; RESPONSE CODE={}; RESPONSE={}; TIM TAKEN={}",
                 request.getMethod(), request.getRequestURI(), requestBody, response.getStatus(), responseBody,
                 timeTaken);
+
+        final SaveLogRequest saveLogRequest = SaveLogRequest.builder()
+                .headers(headerInfoRequest)
+                .application(ApplicationEnums.SOCIAL_API)
+                .url(request.getRequestURI())
+                .method(request.getMethod())
+                .requestBody(requestBody)
+                .response(responseBody)
+                .responseCode(response.getStatus())
+                .startTime(startTime)
+                .timeTaken(timeTaken)
+                .build();
+
+        loggerService.accept(saveLogRequest);
+
         responseWrapper.copyBodyToResponse();
     }
 

@@ -1,7 +1,7 @@
 package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
-import com.food.recipe.api.model.SaveLogRequest;
+import com.food.recipe.api.model.logger.SaveLogRequest;
 import com.food.recipe.api.service.LoggerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,8 @@ public class LoggerController {
     private final LoggerService loggerService;
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestResponse<Boolean>> saveLog(@RequestBody SaveLogRequest saveLogRequest) {
+    public ResponseEntity<Boolean> saveLog(@RequestBody SaveLogRequest saveLogRequest) {
 
-        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, loggerService.saveLog(saveLogRequest)));
+        return ResponseEntity.ok().body(loggerService.saveLog(saveLogRequest));
     }
 }

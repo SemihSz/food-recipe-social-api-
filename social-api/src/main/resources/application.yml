@@ -45,6 +45,15 @@ server:
   port: 9978
 
 projects:
-  project:
-    - id: auth
-      url: http://localhost:8080/auth/valid
+  - info:
+      name: AUTHENTICATION
+      id: 1
+      url: http://localhost:9898/
+  - info:
+      name: DOCUMENT
+      id: 2
+      url: http://localhost:9545/
+  - info:
+      name: LOGGER
+      id: 3
+      url: http://localhost:9818/

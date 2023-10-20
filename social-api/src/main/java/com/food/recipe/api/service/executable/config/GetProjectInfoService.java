@@ -1,0 +1,21 @@
+package com.food.recipe.api.service.executable.config;
+
+import com.food.recipe.api.SimpleTask;
+import com.food.recipe.api.model.ConfigurationProperties;
+import com.food.recipe.api.model.properties.ProjectInfoModel;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class GetProjectInfoService implements SimpleTask<String, ProjectInfoModel> {
+
+  private final ConfigurationProperties configurationProperties;
+
+  @Override
+  public ProjectInfoModel apply(String s) {
+    return configurationProperties.getProjects().get(s);
+  }
+}

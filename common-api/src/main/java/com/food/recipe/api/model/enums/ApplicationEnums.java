@@ -1,4 +1,4 @@
-package com.food.recipe.api.model.logger;
+package com.food.recipe.api.model.enums;
 
 import lombok.Getter;
 
@@ -9,6 +9,7 @@ import lombok.Getter;
 public enum ApplicationEnums {
 
     SOCIAL_API,
+    LOGGER,
     AUTHENTICATION,
     DOCUMENT
 }

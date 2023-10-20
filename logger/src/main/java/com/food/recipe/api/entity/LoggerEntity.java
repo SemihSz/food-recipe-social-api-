@@ -1,9 +1,8 @@
 package com.food.recipe.api.entity;
 
-import com.food.recipe.api.model.logger.ApplicationEnums;
+import com.food.recipe.api.model.enums.ApplicationEnums;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;

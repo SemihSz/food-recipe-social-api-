@@ -1,5 +1,6 @@
 package com.food.recipe.api.model.logger;
 
+import com.food.recipe.api.model.enums.ApplicationEnums;
 import lombok.Builder;
 import lombok.Data;
 

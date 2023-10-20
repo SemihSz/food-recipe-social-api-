@@ -1,22 +1,17 @@
 package com.food.recipe.api.config;
 
-import brave.Tracer;
-import com.food.recipe.api.model.logger.ApplicationEnums;
+import com.food.recipe.api.model.enums.ApplicationEnums;
 import com.food.recipe.api.model.logger.SaveLogRequest;
 import com.food.recipe.api.service.executable.logger.LoggerService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -24,9 +19,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-import java.util.function.Function;
-
-import static java.util.Collections.list;
 
 /**
  * Created by Semih, 4.10.2023

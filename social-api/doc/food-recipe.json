@@ -28,17 +28,23 @@
   "recipeSteps": [
     {
       "stepNumber": 1,
+      "title": "Title",
       "description": "Hamuru hazırlamak için...",
+      "stages": [],
       "imageBase64": "base64_encoded_image_1"
     },
     {
       "stepNumber": 2,
+      "title": "Title",
       "description": "Sosu yapmak için...",
+      "stages": [],
       "imageBase64": "base64_encoded_image_2"
     },
     {
       "stepNumber": 3,
+      "title": "Title",
       "description": "Pizzayı pişirmek için...",
+      "stages": [],
       "imageBase64": "base64_encoded_image_3"
     }
   ]

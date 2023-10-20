@@ -1,6 +1,6 @@
 package com.food.recipe.api.interceptor;
 
-import com.food.recipe.api.model.logger.ApplicationEnums;
+import com.food.recipe.api.model.enums.ApplicationEnums;
 import com.food.recipe.api.model.logger.SaveLogRequest;
 import com.food.recipe.api.service.logger.LoggerService;
 import jakarta.servlet.FilterChain;

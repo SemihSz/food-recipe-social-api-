@@ -1,7 +1,7 @@
 package com.food.recipe.api.entity.post.comment.like;
 
 import com.food.recipe.api.entity.post.PostEntity;
-import com.food.recipe.api.entity.post.comment.CommentEntity;
+import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,5 +31,5 @@ public class CommentLikedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(name = "comment_entity.id", nullable = false)
-    private CommentEntity comment;
+    private CommentsEntity comment;
 }

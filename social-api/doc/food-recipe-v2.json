@@ -1,0 +1,90 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "example_user",
+      "email": "user@example.com",
+      "profilePicture": "base64_encoded_image"
+    },
+    {
+      "id": 2,
+      "username": "another_user",
+      "email": "another@example.com",
+      "profilePicture": "base64_encoded_image"
+    }
+  ],
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Pizza Recipe",
+      "description": "Delicious pizza recipe with a twist!",
+      "ingredients": [
+        "mozarella cheese",
+        "tomato sauce",
+        "mushrooms"
+      ],
+      "instructions": [
+        {
+          "stepNumber": 1,
+          "title": "Prepare the Dough",
+          "description": "To prepare the dough...",
+          "imageBase64": "base64_encoded_image_1"
+        },
+        {
+          "stepNumber": 2,
+          "title": "Make the Sauce",
+          "description": "To make the sauce...",
+          "imageBase64": "base64_encoded_image_2"
+        },
+        {
+          "stepNumber": 3,
+          "title": "Cook the Pizza",
+          "description": "To cook the pizza...",
+          "imageBase64": "base64_encoded_image_3"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Pasta Recipe",
+      "description": "Classic pasta recipe with a twist!",
+      "ingredients": [
+        "pasta",
+        "tomato sauce",
+        "parmesan cheese"
+      ],
+      "instructions": [
+        {
+          "stepNumber": 1,
+          "title": "Boil the Pasta",
+          "description": "To boil the pasta...",
+          "imageBase64": "base64_encoded_image_4"
+        },
+        {
+          "stepNumber": 2,
+          "title": "Make the Sauce",
+          "description": "To make the sauce...",
+          "imageBase64": "base64_encoded_image_5"
+        },
+        {
+          "stepNumber": 3,
+          "title": "Serve the Pasta",
+          "description": "To serve the pasta...",
+          "imageBase64": "base64_encoded_image_6"
+        }
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "userId": 1,
+      "recipeId": 1,
+      "text": "This pizza is amazing!"
+    },
+    {
+      "userId": 2,
+      "recipeId": 2,
+      "text": "I loved the pasta!"
+    }
+  ]
+}

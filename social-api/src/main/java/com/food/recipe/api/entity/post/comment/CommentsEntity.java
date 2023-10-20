@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CommentEntity {
+public class CommentsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

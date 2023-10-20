@@ -1,0 +1,48 @@
+{
+  "user": {
+    "username": "kullanici123",
+    "profileImage": "base64_encoded_image",
+    "followers": 100,
+    "following": 50
+  },
+  "recipe": {
+    "title": "Lezzetli Pizza",
+    "description": "Harika bir pizza tarifi.",
+    "ingredients": [
+      "mozarella peyniri",
+      "domates sosu",
+      "mantar"
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "title": "Hamuru hazırlamak için...",
+        "description": "Hamur malzemelerini karıştırın...",
+        "imageBase64": "base64_encoded_image_1"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sosu yapmak için...",
+        "description": "Sos malzemelerini karıştırın...",
+        "imageBase64": "base64_encoded_image_2"
+      },
+      {
+        "stepNumber": 3,
+        "title": "Pizzayı pişirmek için...",
+        "description": "Fırını ısıtın ve pizzayı pişirin...",
+        "imageBase64": "base64_encoded_image_3"
+      }
+    ],
+    "rating": 4.8,
+    "comments": [
+      {
+        "user": "kullanici456",
+        "comment": "Harika bir tarif!"
+      },
+      {
+        "user": "kullanici789",
+        "comment": "Çok lezzetli oldu!"
+      }
+    ]
+  }
+}

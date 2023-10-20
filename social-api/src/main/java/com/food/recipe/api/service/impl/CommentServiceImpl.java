@@ -1,7 +1,7 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
-import com.food.recipe.api.entity.post.comment.CommentEntity;
+import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
@@ -75,7 +75,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponse updateComment(CommentUpdateRequest commentUpdateRequest) {
 
-        final CommentEntity comment = getCommentInformationService.apply(commentUpdateRequest.getCommentId());
+        final CommentsEntity comment = getCommentInformationService.apply(commentUpdateRequest.getCommentId());
 
         if (Objects.nonNull(comment)) {
             final boolean isUpdatedComment = updateCommentService.test(commentUpdateRequest, comment);
@@ -96,7 +96,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentResponse deleteComment(CommentDeleteRequest commentDeleteRequest) {
 
-        final CommentEntity comment = getCommentInformationService.apply(commentDeleteRequest.getCommentId());
+        final CommentsEntity comment = getCommentInformationService.apply(commentDeleteRequest.getCommentId());
 
         if (Objects.nonNull(comment)) {
             final boolean isDeletedComment = deleteCommentService.test(comment);

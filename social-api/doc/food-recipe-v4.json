@@ -1,0 +1,50 @@
+{
+  "user": {
+    "username": "kullanici123",
+    "profileImage": "base64_encoded_image",
+    "followers": 100,
+    "following": 50
+  },
+  "recipes":
+  {
+    "id": 1,
+    "title": "Pizza Recipe",
+    "description": "Delicious pizza recipe with a twist!",
+    "cuisineType": "Italian",
+    "mealType": "Dinner",
+    "preparationTime": "45 minutes",
+    "cookTime": "15 minutes",
+    "totalTime": "1 hour",
+    "servings": 4,
+    "caloriesPerServing": 350,
+    "ingredients": [
+      "1 cup mozarella cheese",
+      "1/2 cup tomato sauce",
+      "1/4 cup mushrooms",
+      "1/4 cup olives",
+      "1/4 cup bell peppers",
+      "1/4 cup pepperoni slices"
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare the Dough",
+        "description": "To prepare the dough, mix flour, yeast, water, and salt in a bowl. Knead the dough until smooth. Cover and let it rise for 1 hour.",
+        "imageBase64": "base64_encoded_image_1"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make the Sauce",
+        "description": "To make the sauce, combine tomato sauce, olive oil, garlic, and Italian seasoning in a saucepan. Simmer for 15 minutes.",
+        "imageBase64": "base64_encoded_image_2"
+      },
+      {
+        "stepNumber": 3,
+        "title": "Assemble and Bake",
+        "description": "Roll out the dough, spread the sauce, and add toppings. Bake in a preheated oven at 220°C for 15 minutes.",
+        "imageBase64": "base64_encoded_image_3"
+      }
+    ]
+  }
+
+}

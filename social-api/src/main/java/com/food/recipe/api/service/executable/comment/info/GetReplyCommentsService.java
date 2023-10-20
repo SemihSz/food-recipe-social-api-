@@ -1,7 +1,7 @@
 package com.food.recipe.api.service.executable.comment.info;
 
 import com.food.recipe.api.SimpleTask;
-import com.food.recipe.api.entity.post.comment.CommentEntity;
+import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.post.comment.ReplyCommentEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.comment.ReplyCommentList;
@@ -36,7 +36,7 @@ public class GetReplyCommentsService implements SimpleTask<ReplyCommentInput, Li
 
         for (ReplyCommentEntity entity : replyCommentEntityList) {
 
-            final CommentEntity commentInformation = getCommentInformationService.apply(entity.getId());
+            final CommentsEntity commentInformation = getCommentInformationService.apply(entity.getId());
             final SocialUserEntity socialUser = getUserInfoWithIdService.apply(entity.getUser().getId());
 
             final ReplyCommentList replyComment = ReplyCommentList.builder()

@@ -1,7 +1,7 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
-import com.food.recipe.api.entity.post.comment.CommentEntity;
+import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.input.comment.AddReplyCommentInput;
 import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
@@ -49,7 +49,7 @@ public ReplyCommentResponse addComment(BaseReplyCommentRequest request) {
   final PostEntity getPostInformation = getPostInformationService.apply(request.getPostId());
 
   // Retrieve the comment information based on the comment ID from the request
-  final CommentEntity comment = getCommentInformationService.apply(request.getCommentId());
+  final CommentsEntity comment = getCommentInformationService.apply(request.getCommentId());
 
   // Check if all the required information is available and the description is not empty
   if (Objects.nonNull(comment) && Objects.nonNull(getPostInformation) &&

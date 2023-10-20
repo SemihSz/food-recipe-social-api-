@@ -47,5 +47,5 @@ public class ReplyCommentEntity {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(name = "comment_entity.id", nullable = false)
-    private CommentEntity comment;
+    private CommentsEntity comment;
 }

@@ -1,11 +1,11 @@
 package com.food.recipe.api.service.executable.comment.info;
 
 import com.food.recipe.api.SimpleTask;
-import com.food.recipe.api.entity.post.comment.CommentEntity;
+import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.comment.CommentList;
 import com.food.recipe.api.model.request.comment.PostCommentRequest;
-import com.food.recipe.api.repository.post.comment.CommentRepository;
+import com.food.recipe.api.repository.post.comment.CommentsRepository;
 import com.food.recipe.api.repository.user.SocialUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @Slf4j
 public class GetSelectedCommentService implements SimpleTask<PostCommentRequest, List<CommentList>> {
 
-    private final CommentRepository commentRepository;
+    private final CommentsRepository commentsRepository;
 
     private final SocialUserRepository socialUserRepository;
 
@@ -29,11 +29,11 @@ public class GetSelectedCommentService implements SimpleTask<PostCommentRequest,
     public List<CommentList> apply(PostCommentRequest postCommentRequest) {
 
         final Long postId = postCommentRequest.getPostId();
-        final List<CommentEntity> comments = commentRepository.findCommentsByPostId(postId);
+        final List<CommentsEntity> comments = commentsRepository.findCommentsByPostId(postId);
         final List<CommentList> commentLists = new ArrayList<>();
         if (!CollectionUtils.isEmpty(comments)) {
 
-            for (CommentEntity comment : comments) {
+            for (CommentsEntity comment : comments) {
                 final Optional<SocialUserEntity> userInfo = socialUserRepository.findById(comment.getId());
                 if (userInfo.isEmpty()) {
                     final SocialUserEntity getUserInfo = userInfo.get();

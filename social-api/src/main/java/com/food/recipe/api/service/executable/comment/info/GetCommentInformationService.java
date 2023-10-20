@@ -1,4 +1,4 @@
-package com.food.recipe.api.service.executable.comment;
+package com.food.recipe.api.service.executable.comment.info;
 
 
 import com.food.recipe.api.SimpleTask;

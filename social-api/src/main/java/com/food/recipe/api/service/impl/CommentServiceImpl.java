@@ -12,7 +12,7 @@ import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import com.food.recipe.api.service.CommentService;
 import com.food.recipe.api.service.executable.comment.AddCommentService;
 import com.food.recipe.api.service.executable.comment.DeleteCommentService;
-import com.food.recipe.api.service.executable.comment.GetCommentInformationService;
+import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.UpdateCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;

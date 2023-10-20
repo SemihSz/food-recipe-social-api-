@@ -8,7 +8,7 @@ import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
 import com.food.recipe.api.model.request.comment.reply.UpdateReplyCommentRequest;
 import com.food.recipe.api.model.response.comment.reply.ReplyCommentResponse;
 import com.food.recipe.api.service.ReplyCommentService;
-import com.food.recipe.api.service.executable.comment.GetCommentInformationService;
+import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.reply.AddReplyCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;

@@ -1,4 +1,4 @@
-package com.food.recipe.api.service.executable.comment;
+package com.food.recipe.api.service.executable.comment.info;
 
 import com.food.recipe.api.SimpleTask;
 import com.food.recipe.api.entity.post.comment.CommentEntity;
@@ -7,7 +7,6 @@ import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.comment.ReplyCommentList;
 import com.food.recipe.api.model.input.comment.ReplyCommentInput;
 import com.food.recipe.api.repository.post.comment.ReplyCommentEntityRepository;
-import com.food.recipe.api.repository.user.SocialUserRepository;
 import com.food.recipe.api.service.executable.user.GetUserInfoWithIdService;
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package com.food.recipe.api.model.document.request;
 
+import com.food.recipe.api.validation.annotation.CustomExclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,9 @@ public class SaveDocumentRequest {
 
     private Long userId;
 
+    @CustomExclude
     private MultipartFile file;
 
+    @CustomExclude
     private MultipartFile[] files;
 }

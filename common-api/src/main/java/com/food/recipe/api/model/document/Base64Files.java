@@ -1,5 +1,6 @@
 package com.food.recipe.api.model.document;
 
+import com.food.recipe.api.validation.annotation.CustomExclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Base64Files {
 
     private String fileType;
 
+    @CustomExclude
     private String base64Data;
 
     public Base64Files(String fileName, String fileType, String base64Data) {

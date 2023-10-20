@@ -2,7 +2,10 @@ package com.food.recipe.api.aspect;
 
 import com.food.recipe.api.Constant;
 import com.food.recipe.api.model.RestClientRequest;
+import com.food.recipe.api.model.enums.ApplicationEnums;
+import com.food.recipe.api.model.properties.ProjectInfoModel;
 import com.food.recipe.api.service.client.ServiceRestClient;
+import com.food.recipe.api.service.executable.config.GetProjectInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,6 +34,8 @@ public class SecurityAspect {
     public static final String USERNAME = "USERNAME";
 
     private final ServiceRestClient<Object> serviceRestClient;
+
+    private final GetProjectInfoService getProjectInfoService;
 
     @Pointcut("within(@org.springframework.web.bind.annotation.RestController *) && execution(* com.food.recipe.api.controller.*.*(..))")
     public void allMethods() {
@@ -69,8 +74,10 @@ public class SecurityAspect {
         Map<String, Object> path = new HashMap<>();
         path.put("username", username);
 
+        final ProjectInfoModel infoModel = getProjectInfoService.apply(ApplicationEnums.AUTHENTICATION.name());
+
         final RestClientRequest restClientRequest = RestClientRequest.builder()
-                .url("http://localhost:9898".concat(Constant.URL.AUTH_INFO))
+                .url(infoModel.getUrl().concat(Constant.URL.AUTH_INFO))
                 .requestMethod(HttpMethod.GET)
                 .httpHeaders(headers)
                 .pathVariables(path)

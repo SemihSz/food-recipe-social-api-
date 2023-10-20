@@ -19,6 +19,13 @@ public class Constant {
             }
         }
 
+        public static class Document {
+
+            public static final String SAVE_FILE_BASE_64 = "/api/doc/v1/save-base64";
+            public Document() {
+            }
+        }
+
     }
 
     public static class Exception {

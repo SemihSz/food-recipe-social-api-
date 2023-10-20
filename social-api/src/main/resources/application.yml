@@ -48,12 +48,12 @@ projects:
   - info:
       name: AUTHENTICATION
       id: 1
-      url: http://localhost:9898/
+      url: http://localhost:9898
   - info:
       name: DOCUMENT
       id: 2
-      url: http://localhost:9545/
+      url: http://localhost:9545
   - info:
       name: LOGGER
       id: 3
-      url: http://localhost:9818/
+      url: http://localhost:9818

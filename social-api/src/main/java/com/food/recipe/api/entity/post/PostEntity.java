@@ -1,8 +1,6 @@
 package com.food.recipe.api.entity.post;
 
-import com.food.recipe.api.entity.recipe.RecipeEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -32,7 +30,4 @@ public class PostEntity {
     @ElementCollection
     private List<Long> imageId;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-    @JoinColumn(name = "recipe_entity.id", nullable = false)
-    private RecipeEntity recipe;
 }

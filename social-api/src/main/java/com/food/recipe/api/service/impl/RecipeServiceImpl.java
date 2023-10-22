@@ -1,6 +1,8 @@
 package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.model.request.recipe.CreateRecipeRequest;
+import com.food.recipe.api.model.request.recipe.DeleteRecipeRequest;
+import com.food.recipe.api.model.request.recipe.UpdateRecipeRequest;
 import com.food.recipe.api.model.response.recipe.CreateRecipeResponse;
 import com.food.recipe.api.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +15,17 @@ import org.springframework.stereotype.Service;
 public class RecipeServiceImpl implements RecipeService {
 
     @Override
-    public CreateRecipeResponse createNewRecipe(CreateRecipeRequest createRecipeRequest) {
+    public CreateRecipeResponse createNewRecipe(CreateRecipeRequest request) {
         return null;
     }
 
     @Override
-    public CreateRecipeResponse updatedRecipe() {
+    public CreateRecipeResponse updatedRecipe(UpdateRecipeRequest request) {
         return null;
     }
 
     @Override
-    public Boolean deleteRecipe() {
+    public Boolean deleteRecipe(DeleteRecipeRequest request) {
         return null;
     }
 

@@ -1,6 +1,8 @@
 package com.food.recipe.api.entity.post;
 
+import com.food.recipe.api.entity.recipe.RecipeEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
+import com.food.recipe.api.model.enums.LikeEnums;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +26,9 @@ public class LikeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private LikeEnums LikeTypes;
+
     @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(name = "post_entity.id", nullable = false)
     private PostEntity post;
@@ -31,4 +36,8 @@ public class LikeEntity {
     @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinColumn(name = "social_user_entity.id", nullable = false)
     private SocialUserEntity user;
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn(name = "recipe_entity.id", nullable = false)
+    private RecipeEntity recipe;
 }

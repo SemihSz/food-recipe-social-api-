@@ -1,14 +1,14 @@
 package com.food.recipe.api.model.request.recipe;
 
 import com.food.recipe.api.model.recipe.RecipeStep;
-import com.food.recipe.api.model.request.post.PostRequest;
+import com.food.recipe.api.model.request.BaseRequest;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CreateRecipeRequest extends PostRequest {
+public class CreateRecipeRequest extends BaseRequest {
 
   private String title;
 

@@ -1,5 +1,6 @@
 package com.food.recipe.api.model.recipe;
 
+import com.food.recipe.api.model.document.Base64Files;
 import lombok.Data;
 
 @Data
@@ -11,6 +12,6 @@ public class RecipeStep {
 
   private String description;
 
-  private String imageBase64;
+  private Base64Files imageBase64;
 
 }

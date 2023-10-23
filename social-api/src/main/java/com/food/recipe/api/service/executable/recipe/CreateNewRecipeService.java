@@ -39,14 +39,17 @@ public class CreateNewRecipeService implements SimpleTask<CreateRecipeInput, Cre
     final List<RecipeStep> getRecipeList = input.getInstructions();
 
     if (Objects.nonNull(getRecipeList) && !getRecipeList.isEmpty()) {
+      // TODO burada olan logic bak! Sıkıntılı durum var. Evrak yüklerken instructions arasında bağlantı kurmalısın.
       final List<Base64Files> base64Files = new ArrayList<>();
       for (RecipeStep recipeStep : getRecipeList) {
+        //builder.base64StringList(recipeStep.getImageBase64());
+        final List<SaveDocumentResponse> response = saveFileService.apply(builder.build());
         base64Files.add(recipeStep.getImageBase64());
       }
-      builder.base64StringList(base64Files);
+
     }
     // Call a service to save the file(s) and get a response
-    final List<SaveDocumentResponse> response = saveFileService.apply(builder.build());
+
 
     final RecipeEntity recipe = RecipeEntityMapper.INSTANCE.convert(input);
     repository.save(recipe);

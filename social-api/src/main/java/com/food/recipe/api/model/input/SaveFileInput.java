@@ -24,6 +24,7 @@ public class SaveFileInput {
 
     private String base64String;
 
+
     private List<Base64Files> base64StringList;
 
     private String username;

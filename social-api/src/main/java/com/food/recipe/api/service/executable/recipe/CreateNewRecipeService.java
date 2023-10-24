@@ -14,10 +14,10 @@ import com.food.recipe.api.service.executable.post.SaveFileService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -39,14 +39,18 @@ public class CreateNewRecipeService implements SimpleTask<CreateRecipeInput, Cre
     final List<RecipeStep> getRecipeList = input.getInstructions();
 
     if (Objects.nonNull(getRecipeList) && !getRecipeList.isEmpty()) {
-      // TODO burada olan logic bak! Sıkıntılı durum var. Evrak yüklerken instructions arasında bağlantı kurmalısın.
-      final List<Base64Files> base64Files = new ArrayList<>();
+      final List<RecipeStep> newRecipeStep = new ArrayList<>();
       for (RecipeStep recipeStep : getRecipeList) {
-        //builder.base64StringList(recipeStep.getImageBase64());
+        final AtomicReference<List<Base64Files>> base64Files = new AtomicReference<>(new ArrayList<>());
+        base64Files.get().add(recipeStep.getImageBase64());
         final List<SaveDocumentResponse> response = saveFileService.apply(builder.build());
-        base64Files.add(recipeStep.getImageBase64());
+        if (Objects.nonNull(response) && !response.isEmpty()) {
+          final SaveDocumentResponse getSaveDocumentResponse = response.get(0);
+          recipeStep.setDocumentId(getSaveDocumentResponse.getDocumentId());
+          newRecipeStep.add(recipeStep);
+        }
       }
-
+      input.setInstructions(newRecipeStep);
     }
     // Call a service to save the file(s) and get a response
 

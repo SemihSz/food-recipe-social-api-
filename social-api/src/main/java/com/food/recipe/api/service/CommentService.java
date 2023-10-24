@@ -1,10 +1,13 @@
 package com.food.recipe.api.service;
 
+import com.food.recipe.api.model.comment.CommentList;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
+import com.food.recipe.api.model.request.comment.PostCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,9 +38,9 @@ public interface CommentService {
 
     /**
      *
-     * @param postId
+     * @param request
      * @return SelectedPostCommentsResponse
      */
-    SelectedPostCommentsResponse selectedPostComments(Long postId);
+    List<CommentList> selectedPostComments(PostCommentRequest request);
 
 }

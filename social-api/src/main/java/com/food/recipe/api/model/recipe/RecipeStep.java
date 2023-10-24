@@ -14,6 +14,6 @@ public class RecipeStep {
 
   private Base64Files imageBase64;
 
-  private Long imageId;
+  private Long documentId;
 
 }

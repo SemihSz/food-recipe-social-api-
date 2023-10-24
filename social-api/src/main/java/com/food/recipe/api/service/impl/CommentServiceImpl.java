@@ -3,10 +3,12 @@ package com.food.recipe.api.service.impl;
 import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
+import com.food.recipe.api.model.comment.CommentList;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
+import com.food.recipe.api.model.request.comment.PostCommentRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import com.food.recipe.api.service.CommentService;
@@ -14,8 +16,10 @@ import com.food.recipe.api.service.executable.comment.AddCommentService;
 import com.food.recipe.api.service.executable.comment.DeleteCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.UpdateCommentService;
+import com.food.recipe.api.service.executable.comment.info.GetSelectedCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,6 +39,8 @@ public class CommentServiceImpl implements CommentService {
     private final GetSocialAppUserInfoService getSocialAppUserInfoService;
 
     private final GetCommentInformationService getCommentInformationService;
+
+    private final GetSelectedCommentService getSelectedCommentService;
 
     private final AddCommentService addCommentService;
 
@@ -110,7 +116,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public SelectedPostCommentsResponse selectedPostComments(Long postId) {
-        return null;
+    public List<CommentList> selectedPostComments(PostCommentRequest postCommentRequest) {
+        return getSelectedCommentService.apply(postCommentRequest);
     }
 }

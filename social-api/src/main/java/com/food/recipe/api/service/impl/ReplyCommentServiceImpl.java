@@ -2,6 +2,7 @@ package com.food.recipe.api.service.impl;
 
 import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.post.comment.CommentsEntity;
+import com.food.recipe.api.entity.post.comment.ReplyCommentEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.input.comment.AddReplyCommentInput;
 import com.food.recipe.api.model.request.comment.reply.BaseReplyCommentRequest;
@@ -9,7 +10,9 @@ import com.food.recipe.api.model.request.comment.reply.UpdateReplyCommentRequest
 import com.food.recipe.api.model.response.comment.reply.ReplyCommentResponse;
 import com.food.recipe.api.service.ReplyCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
+import com.food.recipe.api.service.executable.comment.info.GetReplyCommentInformationService;
 import com.food.recipe.api.service.executable.comment.reply.AddReplyCommentService;
+import com.food.recipe.api.service.executable.comment.reply.DeleteReplyCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import java.util.Objects;
@@ -29,7 +32,11 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
 
   private final GetCommentInformationService getCommentInformationService;
 
+  private final GetReplyCommentInformationService getReplyCommentInformationService;
+
   private final AddReplyCommentService addReplyCommentService;
+
+  private final DeleteReplyCommentService deleteReplyCommentService;
 
 
 /**
@@ -77,6 +84,16 @@ public ReplyCommentResponse addComment(BaseReplyCommentRequest request) {
 
   @Override
   public ReplyCommentResponse deleteComment(BaseReplyCommentRequest request) {
+
+    final ReplyCommentEntity comment = getReplyCommentInformationService.apply(request.getCommentId());
+
+    if (Objects.nonNull(comment)) {
+      final boolean isDeletedComment = deleteReplyCommentService.test(comment);
+
+      if (Boolean.TRUE.equals(isDeletedComment)) {
+        return ReplyCommentResponse.builder().isDeleted(Boolean.TRUE).build();
+      }
+    }
     return null;
   }
 }

@@ -1,5 +1,6 @@
 package com.food.recipe.api.service;
 
+import com.food.recipe.api.model.request.like.LikeRecipeRequest;
 import com.food.recipe.api.model.request.recipe.CreateRecipeRequest;
 import com.food.recipe.api.model.request.recipe.DeleteRecipeRequest;
 import com.food.recipe.api.model.request.recipe.UpdateRecipeRequest;
@@ -15,7 +16,7 @@ public interface RecipeService {
 
     Boolean deleteRecipe(DeleteRecipeRequest request);
 
-    void likeRecipe();
+    void likeRecipe(LikeRecipeRequest request);
 
     void commentRecipe();
 }

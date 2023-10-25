@@ -1,6 +1,7 @@
 package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
+import com.food.recipe.api.model.request.like.LikeRecipeRequest;
 import com.food.recipe.api.model.request.recipe.CreateRecipeRequest;
 import com.food.recipe.api.model.request.recipe.DeleteRecipeRequest;
 import com.food.recipe.api.model.request.recipe.UpdateRecipeRequest;
@@ -34,6 +35,13 @@ public class RecipeController {
     public ResponseEntity<RestResponse<Boolean>> deleteRecipe(@RequestBody DeleteRecipeRequest request) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, recipeService.deleteRecipe(request)));
+    }
+
+    @GetMapping("/like")
+    public ResponseEntity likeRecipe(@RequestBody LikeRecipeRequest request) {
+
+        recipeService.likeRecipe(request);
+        return ResponseEntity.ok().build();
     }
 
 }

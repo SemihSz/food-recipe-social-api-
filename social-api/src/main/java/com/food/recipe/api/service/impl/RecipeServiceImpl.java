@@ -3,6 +3,7 @@ package com.food.recipe.api.service.impl;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.mapper.CreateRecipeInputMapper;
 import com.food.recipe.api.model.input.recipe.CreateRecipeInput;
+import com.food.recipe.api.model.request.like.LikeRecipeRequest;
 import com.food.recipe.api.model.request.recipe.CreateRecipeRequest;
 import com.food.recipe.api.model.request.recipe.DeleteRecipeRequest;
 import com.food.recipe.api.model.request.recipe.UpdateRecipeRequest;
@@ -44,7 +45,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void likeRecipe() {
+    public void likeRecipe(LikeRecipeRequest request) {
 
     }
 

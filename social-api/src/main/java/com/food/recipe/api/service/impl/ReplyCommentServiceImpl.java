@@ -13,6 +13,7 @@ import com.food.recipe.api.service.executable.comment.info.GetCommentInformation
 import com.food.recipe.api.service.executable.comment.info.GetReplyCommentInformationService;
 import com.food.recipe.api.service.executable.comment.reply.AddReplyCommentService;
 import com.food.recipe.api.service.executable.comment.reply.DeleteReplyCommentService;
+import com.food.recipe.api.service.executable.comment.reply.UpdateReplyCommentService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import java.util.Objects;
@@ -37,6 +38,8 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
   private final AddReplyCommentService addReplyCommentService;
 
   private final DeleteReplyCommentService deleteReplyCommentService;
+
+  private final UpdateReplyCommentService updateReplyCommentService;
 
 
 /**
@@ -79,7 +82,7 @@ public ReplyCommentResponse addComment(BaseReplyCommentRequest request) {
 
   @Override
   public ReplyCommentResponse updateComment(UpdateReplyCommentRequest request) {
-    return null;
+    return updateReplyCommentService.apply(request);
   }
 
   @Override

@@ -9,4 +9,6 @@ public class UpdateReplyCommentRequest extends BaseReplyCommentRequest {
 
   private String editDescription;
 
+  private Long replyCommentId;
+
 }

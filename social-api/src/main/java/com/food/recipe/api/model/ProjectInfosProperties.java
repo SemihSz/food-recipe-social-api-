@@ -1,24 +1,27 @@
 package com.food.recipe.api.model;
 
 import com.food.recipe.api.model.properties.ProjectInfoModel;
+
+import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by Semih, 5.10.2023
  */
-@org.springframework.boot.context.properties.ConfigurationProperties("projects")
+@ConfigurationProperties("project-info")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class ConfigurationProperties {
+public class ProjectInfosProperties {
 
-  private Map<String, ProjectInfoModel> projects;
+  private List<ProjectInfoModel> packages;
 
 }

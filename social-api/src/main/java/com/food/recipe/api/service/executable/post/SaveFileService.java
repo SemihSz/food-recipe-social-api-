@@ -52,7 +52,7 @@ public class SaveFileService implements SimpleTask<SaveFileInput, List<SaveDocum
 
         // Create a new RestClientRequest object
         // TODO Header add parameter for save operation.
-        final ProjectInfoModel infoModel = getProjectInfoService.apply(ApplicationEnums.AUTHENTICATION.name());
+        final ProjectInfoModel infoModel = getProjectInfoService.apply(ApplicationEnums.DOCUMENT.name());
 
         final RestClientRequest<?> restClientRequest = RestClientRequest.builder()
                 .url(infoModel.getUrl().concat(Document.SAVE_FILE_BASE_64))

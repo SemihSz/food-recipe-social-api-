@@ -12,7 +12,7 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     generate-ddl: true
   datasource:
     url: jdbc:postgresql://localhost:5432/food_recipe_api
@@ -47,16 +47,11 @@ management:
 server:
   port: 9978
 
-projects:
-  - info:
-      name: AUTHENTICATION
-      id: 1
+project-info:
+  packages:
+    - name: AUTHENTICATION
       url: http://localhost:9898
-  - info:
-      name: DOCUMENT
-      id: 2
+    - name: DOCUMENT
       url: http://localhost:9545
-  - info:
-      name: LOGGER
-      id: 3
+    - name: LOGGER
       url: http://localhost:9818

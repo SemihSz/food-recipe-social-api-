@@ -6,6 +6,7 @@ import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
 import com.food.recipe.api.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,8 +28,8 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping("/create-post")
-    public ResponseEntity<RestResponse<CreatePostResponse>> createPost(@RequestBody PostRequest postRequest) {
+    @PostMapping(value = "/create-post", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RestResponse<CreatePostResponse>> createPost(@RequestBody @Valid PostRequest postRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPost(postRequest)));
     }

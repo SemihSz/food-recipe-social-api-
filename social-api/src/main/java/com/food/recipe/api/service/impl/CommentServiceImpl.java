@@ -36,7 +36,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class CommentServiceImpl extends LikeDislikeAbstractService implements CommentService {
+public class CommentServiceImpl implements CommentService {
 
     private final GetPostInformationService getPostInformationService;
 

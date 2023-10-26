@@ -6,7 +6,7 @@ import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.comment.CommentList;
 import com.food.recipe.api.model.enums.LikeEnums;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
-import com.food.recipe.api.model.input.like.CommentLikeInput;
+import com.food.recipe.api.model.input.like.LikeInput;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
@@ -19,7 +19,7 @@ import com.food.recipe.api.service.executable.comment.DeleteCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.UpdateCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetSelectedCommentService;
-import com.food.recipe.api.service.executable.like.CommentLikeService;
+import com.food.recipe.api.service.executable.like.LikeService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import java.util.List;
@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final DeleteCommentService deleteCommentService;
 
-    private final CommentLikeService commentLikeService;
+    private final LikeService likeService;
 
     /**
      * Add comment service layer
@@ -134,7 +134,7 @@ public class CommentServiceImpl implements CommentService {
 
         if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation) && Objects.nonNull(comment)) {
 
-            final CommentLikeInput input = CommentLikeInput.builder()
+            final LikeInput input = LikeInput.builder()
                 .commentId(comment.getId())
                 .LikeTypes(LikeEnums.COMMENT_LIKES)
                 .user(socialUserEntity)
@@ -142,7 +142,7 @@ public class CommentServiceImpl implements CommentService {
                 .post(getPostInformation)
                 .build();
 
-            commentLikeService.accept(input);
+            likeService.accept(input);
         }
     }
 }

@@ -5,12 +5,17 @@ import com.food.recipe.api.entity.post.SavedPostEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.document.Base64Files;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
+import com.food.recipe.api.model.enums.LikeEnums;
 import com.food.recipe.api.model.input.SaveFileInput;
+import com.food.recipe.api.model.input.like.LikeInput;
+import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
 import com.food.recipe.api.repository.post.SavedPostRepository;
 import com.food.recipe.api.service.PostService;
 import com.food.recipe.api.service.executable.converter.ConvertBase64Service;
+import com.food.recipe.api.service.executable.like.LikeService;
+import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.post.SaveFileService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +45,10 @@ public class PostServiceImpl implements PostService {
     private final ConvertBase64Service convertBase64Service;
 
     private final GetSocialAppUserInfoService getSocialAppUserInfoService;
+
+    private final GetPostInformationService getPostInformationService;
+
+    private final LikeService likeService;
 
     /**
      * Create a new post based on the provided {@link PostRequest}.
@@ -176,6 +185,21 @@ public class PostServiceImpl implements PostService {
         return convertBase64Service.apply(files);
     }
 
+    @Override
+    public void likes(LikedBaseRequest request) {
 
+        final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(request.getId(), request.getUsername());
+        final PostEntity getPostInformation = getPostInformationService.apply(request.getPostId());
 
+        if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation)) {
+
+            final LikeInput input = LikeInput.builder()
+                .LikeTypes(LikeEnums.POST)
+                .user(socialUserEntity)
+                .post(getPostInformation)
+                .build();
+
+            likeService.accept(input);
+        }
+    }
 }

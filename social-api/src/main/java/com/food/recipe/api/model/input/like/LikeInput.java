@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CommentLikeInput {
+public class LikeInput {
 
   private Long commentId;
 

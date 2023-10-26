@@ -14,7 +14,7 @@ import com.food.recipe.api.model.response.CreatePostResponse;
 import com.food.recipe.api.repository.post.SavedPostRepository;
 import com.food.recipe.api.service.PostService;
 import com.food.recipe.api.service.executable.converter.ConvertBase64Service;
-import com.food.recipe.api.service.executable.like.LikeService;
+import com.food.recipe.api.service.executable.like.SaveLikeService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.post.SaveFileService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
 
     private final GetPostInformationService getPostInformationService;
 
-    private final LikeService likeService;
+    private final SaveLikeService saveLikeService;
 
     /**
      * Create a new post based on the provided {@link PostRequest}.
@@ -185,21 +185,32 @@ public class PostServiceImpl implements PostService {
         return convertBase64Service.apply(files);
     }
 
+    /**
+     * Process a "like" action for a post based on the provided request.
+     *
+     * @param request The request containing user and post information.
+     */
     @Override
     public void likes(LikedBaseRequest request) {
-
+        // Retrieve user and post information from the request.
         final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(request.getId(), request.getUsername());
         final PostEntity getPostInformation = getPostInformationService.apply(request.getPostId());
 
+        // Check if both user and post information are not null.
         if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation)) {
-
+            // Create a "like" input and perform the like action for the post.
             final LikeInput input = LikeInput.builder()
                 .LikeTypes(LikeEnums.POST)
                 .user(socialUserEntity)
                 .post(getPostInformation)
                 .build();
 
-            likeService.accept(input);
+            saveLikeService.accept(input);
         }
+    }
+
+    @Override
+    public void dislikes(LikedBaseRequest request) {
+
     }
 }

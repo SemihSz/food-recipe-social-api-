@@ -8,15 +8,13 @@ import com.food.recipe.api.model.response.recipe.CreateRecipeResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface RecipeService {
+public interface RecipeService extends LikeDislikeService {
 
     CreateRecipeResponse createNewRecipe(CreateRecipeRequest request);
 
     CreateRecipeResponse updatedRecipe(UpdateRecipeRequest request);
 
     Boolean deleteRecipe(DeleteRecipeRequest request);
-
-    void likeRecipe(LikeRecipeRequest request);
 
     void commentRecipe();
 }

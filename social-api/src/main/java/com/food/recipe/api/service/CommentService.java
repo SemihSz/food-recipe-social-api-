@@ -5,7 +5,6 @@ import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.request.comment.PostCommentRequest;
-import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
  * Created by Semih, 15.10.2023
  */
 @Service
-public interface CommentService {
+public interface CommentService extends LikeDislikeService {
 
     /**
      *
@@ -43,6 +42,5 @@ public interface CommentService {
      */
     List<CommentList> selectedPostComments(PostCommentRequest request);
 
-    void likes(LikedBaseRequest request);
 
 }

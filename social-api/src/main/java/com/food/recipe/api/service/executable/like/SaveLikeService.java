@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class LikeService implements Consumer<LikeInput> {
+public class SaveLikeService implements Consumer<LikeInput> {
 
   private final CommentLikedEntityRepository commentLikedEntityRepository;
 

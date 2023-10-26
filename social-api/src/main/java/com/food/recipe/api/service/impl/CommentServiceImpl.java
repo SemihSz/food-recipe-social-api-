@@ -14,12 +14,13 @@ import com.food.recipe.api.model.request.comment.PostCommentRequest;
 import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import com.food.recipe.api.service.CommentService;
+import com.food.recipe.api.service.LikeDislikeAbstractService;
 import com.food.recipe.api.service.executable.comment.AddCommentService;
 import com.food.recipe.api.service.executable.comment.DeleteCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.UpdateCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetSelectedCommentService;
-import com.food.recipe.api.service.executable.like.LikeService;
+import com.food.recipe.api.service.executable.like.SaveLikeService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import java.util.List;
@@ -35,7 +36,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl extends LikeDislikeAbstractService implements CommentService {
 
     private final GetPostInformationService getPostInformationService;
 
@@ -51,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final DeleteCommentService deleteCommentService;
 
-    private final LikeService likeService;
+    private final SaveLikeService saveLikeService;
 
     /**
      * Add comment service layer
@@ -142,7 +143,14 @@ public class CommentServiceImpl implements CommentService {
                 .post(getPostInformation)
                 .build();
 
-            likeService.accept(input);
+            saveLikeService.accept(input);
         }
     }
+
+    @Override
+    public void dislikes(LikedBaseRequest request) {
+
+    }
+
+
 }

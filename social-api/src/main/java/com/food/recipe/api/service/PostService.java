@@ -1,7 +1,6 @@
 package com.food.recipe.api.service;
 
 import com.food.recipe.api.model.document.Base64Files;
-import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.List;
  * Created by Semih, 1.10.2023
  */
 @Service
-public interface PostService {
+public interface PostService extends LikeDislikeService {
 
     CreatePostResponse createPost(PostRequest request);
 
@@ -21,5 +20,4 @@ public interface PostService {
 
     List<Base64Files> convertMultipartBase64(MultipartFile[] files);
 
-    void likes(LikedBaseRequest request);
 }

@@ -4,19 +4,22 @@ import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import com.food.recipe.api.entity.user.SocialUserEntity;
 import com.food.recipe.api.model.comment.CommentList;
+import com.food.recipe.api.model.enums.LikeEnums;
 import com.food.recipe.api.model.input.comment.AddCommentInput;
+import com.food.recipe.api.model.input.like.CommentLikeInput;
 import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.request.comment.PostCommentRequest;
+import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
-import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import com.food.recipe.api.service.CommentService;
 import com.food.recipe.api.service.executable.comment.AddCommentService;
 import com.food.recipe.api.service.executable.comment.DeleteCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetCommentInformationService;
 import com.food.recipe.api.service.executable.comment.UpdateCommentService;
 import com.food.recipe.api.service.executable.comment.info.GetSelectedCommentService;
+import com.food.recipe.api.service.executable.like.CommentLikeService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import java.util.List;
@@ -47,6 +50,8 @@ public class CommentServiceImpl implements CommentService {
     private final UpdateCommentService updateCommentService;
 
     private final DeleteCommentService deleteCommentService;
+
+    private final CommentLikeService commentLikeService;
 
     /**
      * Add comment service layer
@@ -118,5 +123,26 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentList> selectedPostComments(PostCommentRequest postCommentRequest) {
         return getSelectedCommentService.apply(postCommentRequest);
+    }
+
+    @Override
+    public void likes(LikedBaseRequest request) {
+
+        final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(request.getId(), request.getUsername());
+        final PostEntity getPostInformation = getPostInformationService.apply(request.getPostId());
+        final CommentsEntity comment = getCommentInformationService.apply(request.getCommentId());
+
+        if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation) && Objects.nonNull(comment)) {
+
+            final CommentLikeInput input = CommentLikeInput.builder()
+                .commentId(comment.getId())
+                .LikeTypes(LikeEnums.COMMENT_LIKES)
+                .user(socialUserEntity)
+                .comment(comment)
+                .post(getPostInformation)
+                .build();
+
+            commentLikeService.accept(input);
+        }
     }
 }

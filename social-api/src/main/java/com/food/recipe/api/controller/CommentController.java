@@ -6,6 +6,8 @@ import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.request.comment.PostCommentRequest;
+import com.food.recipe.api.model.request.like.LikeRecipeRequest;
+import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
 import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import com.food.recipe.api.service.CommentService;
@@ -54,6 +56,13 @@ public class CommentController {
     public ResponseEntity<RestResponse<List<CommentList>>> selectedPostComments(@RequestBody PostCommentRequest postCommentRequest) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, commentService.selectedPostComments(postCommentRequest)));
+    }
+
+    @GetMapping("/like")
+    public ResponseEntity like(@RequestBody LikedBaseRequest request) {
+
+        commentService.likes(request);
+        return ResponseEntity.ok().build();
     }
 
 }

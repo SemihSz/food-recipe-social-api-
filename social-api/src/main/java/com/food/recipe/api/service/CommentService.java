@@ -5,8 +5,8 @@ import com.food.recipe.api.model.request.comment.CommentDeleteRequest;
 import com.food.recipe.api.model.request.comment.CommentUpdateRequest;
 import com.food.recipe.api.model.request.comment.CreateCommentRequest;
 import com.food.recipe.api.model.request.comment.PostCommentRequest;
+import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.response.comment.CommentResponse;
-import com.food.recipe.api.model.response.comment.SelectedPostCommentsResponse;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +42,7 @@ public interface CommentService {
      * @return SelectedPostCommentsResponse
      */
     List<CommentList> selectedPostComments(PostCommentRequest request);
+
+    void likes(LikedBaseRequest request);
 
 }

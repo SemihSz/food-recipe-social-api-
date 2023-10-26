@@ -70,24 +70,30 @@ public class LoggingFilterBean extends OncePerRequestFilter {
 
         LOGGER.info(
                 "FINISHED PROCESSING : METHOD={}; REQUEST_URI={};  REQUEST PAYLOAD={}; RESPONSE CODE={}; RESPONSE={}; TIM TAKEN={}",
-                request.getMethod(), request.getRequestURI(), requestBody, response.getStatus(), responseBody,
+                request.getMethod(), request.getRequestURI(), "requestBody", response.getStatus(), responseBody,
                 timeTaken);
 
-        final SaveLogRequest saveLogRequest = SaveLogRequest.builder()
-                .headers(headerInfoRequest)
-                .application(ApplicationEnums.SOCIAL_API)
-                .url(request.getRequestURI())
-                .method(request.getMethod())
-                .requestBody(requestBody)
-                .response(responseBody)
-                .responseCode(response.getStatus())
-                .startTime(startTime)
-                .timeTaken(timeTaken)
-                .build();
+        try {
+            final SaveLogRequest saveLogRequest = SaveLogRequest.builder()
+                    .headers(headerInfoRequest)
+                    .application(ApplicationEnums.SOCIAL_API)
+                    .url(request.getRequestURI())
+                    .method(request.getMethod())
+                    .requestBody(requestBody)
+                    .response(responseBody)
+                    .responseCode(response.getStatus())
+                    .startTime(startTime)
+                    .timeTaken(timeTaken)
+                    .build();
 
-        loggerService.accept(saveLogRequest);
+            loggerService.accept(saveLogRequest);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            responseWrapper.copyBodyToResponse();
+        }
 
         responseWrapper.copyBodyToResponse();
+
     }
 
     private String getStringValue(byte[] contentAsByteArray, String characterEncoding) {

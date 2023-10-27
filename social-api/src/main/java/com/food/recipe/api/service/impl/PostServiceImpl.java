@@ -7,7 +7,7 @@ import com.food.recipe.api.model.document.Base64Files;
 import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.enums.LikeEnums;
 import com.food.recipe.api.model.input.SaveFileInput;
-import com.food.recipe.api.model.input.like.LikeInput;
+import com.food.recipe.api.model.input.like.LikeDislikeInput;
 import com.food.recipe.api.model.request.like.LikedBaseRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
 import com.food.recipe.api.model.response.CreatePostResponse;
@@ -199,7 +199,7 @@ public class PostServiceImpl implements PostService {
         // Check if both user and post information are not null.
         if (Objects.nonNull(socialUserEntity) && Objects.nonNull(getPostInformation)) {
             // Create a "like" input and perform the like action for the post.
-            final LikeInput input = LikeInput.builder()
+            final LikeDislikeInput input = LikeDislikeInput.builder()
                 .LikeTypes(LikeEnums.POST)
                 .user(socialUserEntity)
                 .post(getPostInformation)

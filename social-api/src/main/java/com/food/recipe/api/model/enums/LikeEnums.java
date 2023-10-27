@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public enum LikeEnums {
 
-    POST, RECIPE, COMMENT, COMMENT_LIKES, RELY_COMMENT,
+    POST, RECIPE, COMMENT, RELY_COMMENT,
 }

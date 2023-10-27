@@ -1,9 +1,11 @@
 package com.food.recipe.api.model.document;
 
 import com.food.recipe.api.validation.annotation.CustomExclude;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.Base64;
 
@@ -20,6 +22,8 @@ public class Base64Files {
     private String fileType;
 
     @CustomExclude
+    @JsonIgnore
+    @Transient
     private String base64Data;
 
     public Base64Files(String fileName, String fileType, String base64Data) {

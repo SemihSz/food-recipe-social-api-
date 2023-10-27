@@ -3,6 +3,8 @@ package com.food.recipe.api.config;
 import com.food.recipe.api.model.enums.ApplicationEnums;
 import com.food.recipe.api.model.logger.SaveLogRequest;
 import com.food.recipe.api.service.executable.logger.LoggerService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class LoggingFilterBean extends OncePerRequestFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingFilterBean.class);
 
     private final LoggerService loggerService;
+
+    private final Gson gson;
 
 
     @Override
@@ -67,10 +71,13 @@ public class LoggingFilterBean extends OncePerRequestFilter {
             headerInfoResponse.add(headerValue);
             LOGGER.info("Response Header: {} = {}", headerName, headerValue);
         }
-
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        String jsonString = gson.toJson(requestBody);
         LOGGER.info(
                 "FINISHED PROCESSING : METHOD={}; REQUEST_URI={};  REQUEST PAYLOAD={}; RESPONSE CODE={}; RESPONSE={}; TIM TAKEN={}",
-                request.getMethod(), request.getRequestURI(), "requestBody", response.getStatus(), responseBody,
+                request.getMethod(), request.getRequestURI(), gson.toJson(requestBody), response.getStatus(), responseBody,
                 timeTaken);
 
         try {

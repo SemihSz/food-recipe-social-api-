@@ -21,6 +21,8 @@ public class DeleteCommentService  implements Predicate<CommentsEntity> {
     @Override
     public boolean test(CommentsEntity entity) {
 
+        entity.setPost(null);
+        entity.setUser(null);
         commentsRepository.delete(entity);
 
         return true;

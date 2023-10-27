@@ -40,7 +40,7 @@ public class RecipeController {
     @GetMapping("/like")
     public ResponseEntity likeRecipe(@RequestBody LikeRecipeRequest request) {
 
-        recipeService.likeRecipe(request);
+        recipeService.likes(request);
         return ResponseEntity.ok().build();
     }
 

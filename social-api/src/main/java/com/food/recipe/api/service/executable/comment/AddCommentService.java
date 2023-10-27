@@ -28,6 +28,7 @@ public class AddCommentService implements SimpleTask<AddCommentInput, CommentRes
                 .body(addCommentInput.getDescription())
                 .user(addCommentInput.getUser())
                 .createdAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .post(addCommentInput.getPost())
                 .build();
 

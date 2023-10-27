@@ -1,5 +1,6 @@
 package com.food.recipe.api.repository.post.comment;
 
+import com.food.recipe.api.entity.post.PostEntity;
 import com.food.recipe.api.entity.post.comment.CommentsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,8 +20,11 @@ public interface CommentsRepository extends JpaRepository<CommentsEntity, Long> 
 //
 //    Page<Comment> findCommentsByPostId(@Param("postId") Long postId, Pageable pageable);
 //
-    @Query(value = "SELECT * FROM CommentEntity c WHERE c.post.id = :postId", nativeQuery = true)
-    List<CommentsEntity> findCommentsByPostId(@Param("postId") Long postId);
+//    @Query(value = "SELECT * FROM CommentEntity c WHERE c.post.id = :postId", nativeQuery = true)
+//    List<CommentsEntity> findCommentsByPostId(@Param("postId") Long postId);
+
+    List<CommentsEntity> findByPost(PostEntity post);
+
 //
 //    @Query("SELECT c FROM Comment c where c.id = :commentId and c.post.id = :postId")
 //    Optional<Comment> findCommentByPostIdAndCommentId(@Param("postId") Long postId, @Param("commentId") Long commentId);

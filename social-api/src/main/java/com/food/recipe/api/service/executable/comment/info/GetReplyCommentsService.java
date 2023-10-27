@@ -22,9 +22,9 @@ public class GetReplyCommentsService implements SimpleTask<ReplyCommentInput, Li
 
     private final ReplyCommentEntityRepository replyCommentEntityRepository;
 
-    private final GetCommentInformationService getCommentInformationService;
-
     private final GetUserInfoWithIdService getUserInfoWithIdService;
+
+    private final GetReplyCommentInformationService getReplyCommentInformationService;
 
     @Override
     public List<ReplyCommentList> apply(ReplyCommentInput replyCommentInput) {
@@ -36,17 +36,18 @@ public class GetReplyCommentsService implements SimpleTask<ReplyCommentInput, Li
 
         for (ReplyCommentEntity entity : replyCommentEntityList) {
 
-            final CommentsEntity commentInformation = getCommentInformationService.apply(entity.getId());
+            final ReplyCommentEntity commentInformation = getReplyCommentInformationService.apply(entity.getId());
             final SocialUserEntity socialUser = getUserInfoWithIdService.apply(entity.getUser().getId());
 
             final ReplyCommentList replyComment = ReplyCommentList.builder()
+                .replyCommentsId(entity.getId())
                 .commentDescription(commentInformation.getBody())
                 .postId(entity.getPost().getId())
                 .userId(socialUser.getId())
                 .name(socialUser.getName())
                 .surname(socialUser.getSurname())
                 .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
+                .updatedAt(entity.getUpdatedAt()).username(socialUser.getUsername())
                 .build();
 
             replyCommentList.add(replyComment);

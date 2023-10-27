@@ -17,6 +17,9 @@ public class DeleteReplyCommentService implements Predicate<ReplyCommentEntity> 
   @Override
   public boolean test(ReplyCommentEntity replyCommentEntity) {
 
+    replyCommentEntity.setComment(null);
+    replyCommentEntity.setPost(null);
+    replyCommentEntity.setUser(null);
     replyCommentRepository.delete(replyCommentEntity);
 
     return true;

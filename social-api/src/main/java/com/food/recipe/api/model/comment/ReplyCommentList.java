@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ReplyCommentList implements Serializable {
 
+    private Long replyCommentsId;
+
     private Long userId;
 
     private Long postId;

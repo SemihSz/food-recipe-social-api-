@@ -2,16 +2,17 @@ package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
 import com.food.recipe.api.model.document.Base64Files;
-import com.food.recipe.api.model.document.response.SaveDocumentResponse;
+import com.food.recipe.api.model.request.BaseRequest;
+import com.food.recipe.api.model.request.post.GetUserPostRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
-import com.food.recipe.api.model.response.CreatePostResponse;
+import com.food.recipe.api.model.response.post.CreatePostResponse;
+import com.food.recipe.api.model.response.post.UserPostResponse;
 import com.food.recipe.api.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,5 +48,11 @@ public class PostController {
                                                                                         @RequestParam("id") Long id) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.createPostViaFile(file, username, id)));
+    }
+
+    @GetMapping( "/list")
+    public ResponseEntity<RestResponse<UserPostResponse>> userPostList(@RequestBody GetUserPostRequest request) {
+
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.userPosts(request)));
     }
 }

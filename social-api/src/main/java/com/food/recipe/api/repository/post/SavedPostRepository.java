@@ -1,6 +1,7 @@
 package com.food.recipe.api.repository.post;
 
 import com.food.recipe.api.entity.post.SavedPostEntity;
+import com.food.recipe.api.entity.user.SocialUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +19,5 @@ public interface SavedPostRepository extends JpaRepository<SavedPostEntity, Long
 //    Optional<SavedPostEntity> findSavedPostByPostIdByUserId(@Param("userId") Long userId, @Param("postId") Long postId);
 //
 //    List<SavedPostEntity> findByCreatedBy(Long userId);
-
+    List<SavedPostEntity> findByUser(SocialUserEntity entity);
 }

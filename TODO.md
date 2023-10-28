@@ -5,7 +5,6 @@
       * İlgili servisleri aspect ile kontrol et header token al. Bu token statik olabilir.
 
 - Logger
-  -  
-    * Logger servisini ilgili api bağla
+  -
     * ignore base64 file
     

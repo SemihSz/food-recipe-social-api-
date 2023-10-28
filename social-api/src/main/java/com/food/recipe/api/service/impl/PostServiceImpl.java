@@ -8,14 +8,20 @@ import com.food.recipe.api.model.document.response.SaveDocumentResponse;
 import com.food.recipe.api.model.enums.LikeEnums;
 import com.food.recipe.api.model.input.SaveFileInput;
 import com.food.recipe.api.model.input.like.LikeDislikeInput;
+import com.food.recipe.api.model.input.post.UserPostInput;
+import com.food.recipe.api.model.request.BaseRequest;
 import com.food.recipe.api.model.request.like.LikedBaseRequest;
+import com.food.recipe.api.model.request.post.GetUserPostRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
-import com.food.recipe.api.model.response.CreatePostResponse;
+import com.food.recipe.api.model.response.post.CreatePostResponse;
+import com.food.recipe.api.model.response.post.PostResponse;
+import com.food.recipe.api.model.response.post.UserPostResponse;
 import com.food.recipe.api.repository.post.SavedPostRepository;
 import com.food.recipe.api.service.PostService;
 import com.food.recipe.api.service.executable.converter.ConvertBase64Service;
 import com.food.recipe.api.service.executable.like.SaveLikeService;
 import com.food.recipe.api.service.executable.post.GetPostInformationService;
+import com.food.recipe.api.service.executable.post.GetSelectedUserPostsService;
 import com.food.recipe.api.service.executable.post.SaveFileService;
 import com.food.recipe.api.service.executable.user.GetSocialAppUserInfoService;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +55,8 @@ public class PostServiceImpl implements PostService {
     private final GetPostInformationService getPostInformationService;
 
     private final SaveLikeService saveLikeService;
+
+    private final GetSelectedUserPostsService getSelectedUserPostsService;
 
     /**
      * Create a new post based on the provided {@link PostRequest}.
@@ -212,5 +220,26 @@ public class PostServiceImpl implements PostService {
     @Override
     public void dislikes(LikedBaseRequest request) {
 
+    }
+
+    @Override
+    public UserPostResponse userPosts(GetUserPostRequest request) {
+
+        final SocialUserEntity socialUserEntity = getSocialAppUserInfoService.apply(request.getId(), request.getUsername());
+
+        if (Objects.nonNull(socialUserEntity)) {
+
+            final UserPostInput input = UserPostInput.builder()
+                    .user(socialUserEntity)
+                    .build();
+
+            List<PostResponse> responseList = getSelectedUserPostsService.apply(input);
+
+            if (!CollectionUtils.isEmpty(responseList)) {
+                return UserPostResponse.builder().posts(responseList).build();
+            }
+        }
+
+        return null;
     }
 }

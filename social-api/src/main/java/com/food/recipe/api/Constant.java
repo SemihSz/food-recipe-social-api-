@@ -22,6 +22,9 @@ public class Constant {
         public static class Document {
 
             public static final String SAVE_FILE_BASE_64 = "/api/doc/v1/save-base64";
+
+            public static final String SELECTED_DOCUMENT_INFO = "/api/doc/v1/specific-document/{documentId}";
+
             public Document() {
             }
         }

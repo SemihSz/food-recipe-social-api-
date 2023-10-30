@@ -70,9 +70,9 @@ public class DocumentController {
     }
 
     @GetMapping("/specific-document/{documentId}")
-    public ResponseEntity<RestResponse<DocumentInfoResponse>> documentInfo(@ApiParam(required = true, value = "Document Id", example = "1") @PathVariable Long documentId) {
+    public ResponseEntity<DocumentInfoResponse> documentInfo(@ApiParam(required = true, value = "Document Id", example = "1") @PathVariable Long documentId) {
 
-        return ResponseEntity.ok(new RestResponse<>(200, documentService.documentInfo(documentId)));
+        return ResponseEntity.ok(documentService.documentInfo(documentId));
     }
 
     @GetMapping("/download-document/{documentId}")

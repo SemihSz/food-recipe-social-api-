@@ -2,10 +2,11 @@ package com.food.recipe.api.controller;
 
 import com.food.recipe.api.model.RestResponse;
 import com.food.recipe.api.model.document.Base64Files;
-import com.food.recipe.api.model.request.BaseRequest;
 import com.food.recipe.api.model.request.post.GetUserPostRequest;
 import com.food.recipe.api.model.request.post.PostRequest;
+import com.food.recipe.api.model.request.post.SelectedPostRequest;
 import com.food.recipe.api.model.response.post.CreatePostResponse;
+import com.food.recipe.api.model.response.post.SelectedPostResponse;
 import com.food.recipe.api.model.response.post.UserPostResponse;
 import com.food.recipe.api.service.PostService;
 import jakarta.validation.Valid;
@@ -54,5 +55,11 @@ public class PostController {
     public ResponseEntity<RestResponse<UserPostResponse>> userPostList(@RequestBody GetUserPostRequest request) {
 
         return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.userPosts(request)));
+    }
+
+    @GetMapping("/selected-post")
+    public ResponseEntity<RestResponse<SelectedPostResponse>> selectedPost(@RequestBody SelectedPostRequest request) {
+
+        return ResponseEntity.ok(new RestResponse<>(HttpStatus.OK, postService.selectedPost(request)));
     }
 }

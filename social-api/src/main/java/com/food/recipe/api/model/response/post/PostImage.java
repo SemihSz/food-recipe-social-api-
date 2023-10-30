@@ -1,23 +1,19 @@
-package com.food.recipe.api.model.document;
+package com.food.recipe.api.model.response.post;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * Created by Semih, 3.07.2023
- */
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class DocumentInfoDTO {
+public class PostImage implements Serializable {
 
     private Long documentId;
 
@@ -36,5 +32,4 @@ public class DocumentInfoDTO {
     public LocalDateTime time;
 
     private byte[] data;
-
 }

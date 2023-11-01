@@ -25,6 +25,6 @@ public class GetSelectedPostCommentCountService implements SimpleTask<Long, Long
 
         final Long count = commentsRepository.countByPost(getPostInformation);
 
-        return null;
+        return count;
     }
 }
